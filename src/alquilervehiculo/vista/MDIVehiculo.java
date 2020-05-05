@@ -5,23 +5,31 @@
  */
 package alquilervehiculo.vista;
 
+import alquilervehiculo.excepciones.VehiculoExcepcion;
 import alquilervehiculo.gestion.GestionUsuario;
 import alquilervehiculo.gestion.GestionVehiculo;
+import alquilervehiculo.modelo.AbstractVehiculo;
+import alquilervehiculo.modelo.TipoUsuario;
 import alquilervehiculo.modelo.Usuario;
+import alquilervehiculo.utilidades.LeerArchivoPlano;
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Camilo
- */
+// * @author Camilo
+// */
 public class MDIVehiculo extends javax.swing.JFrame
 {
 
     private Usuario usuarioAutenticado;
     private GestionUsuario gestionLogin;
     private GestionVehiculo controlVehiculo;
+    private GestionUsuario controlUsuario;
+    private LeerArchivoPlano leer;
 
     /**
      * Creates new form MDIVehiculo
@@ -29,14 +37,13 @@ public class MDIVehiculo extends javax.swing.JFrame
     public MDIVehiculo()
     {
         initComponents();
+
     }
 
     private void iniciarMenus(boolean estado)
     {
-        mnuCrearUsuario.setVisible(estado);
-        mnuListarVehiculos.setVisible(estado);
-        mnuPromedioVehiculos.setVisible(estado);
-        mnuBuscarVehiculo.setVisible(estado);
+        mnuAdm.setVisible(estado);
+        mnuVehiculos.setVisible(estado);
 
     }
 
@@ -45,14 +52,15 @@ public class MDIVehiculo extends javax.swing.JFrame
         switch (usuarioAutenticado.getTipoUsuario().getCodigo())
         {
             //Administrador
-            case 1:
+            case "adm":
                 iniciarMenus(true);
+
                 break;
-            //Usuario
-            case 2:
-                iniciarMenus(false);
-                mnuBuscarVehiculo.setVisible(true);
-                break;
+//            Usuario
+//            case "usr":
+//                iniciarMenus(false);
+//                mnuBuscarVehiculo.setVisible(true);
+//                break;
             // Otro
 //            case3:
 //            break;
@@ -70,37 +78,119 @@ public class MDIVehiculo extends javax.swing.JFrame
     {
 
         desktopPane = new javax.swing.JDesktopPane();
-        jPanel1 = new javax.swing.JPanel();
-        txtCorreoUsuario = new javax.swing.JTextField();
-        txtContrasenia = new javax.swing.JPasswordField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        btnIngresar = new javax.swing.JToggleButton();
-        menuBar = new javax.swing.JMenuBar();
-        mnuVehiculo = new javax.swing.JMenu();
-        mnuListarVehiculos = new javax.swing.JMenuItem();
+        jifUsuarios = new javax.swing.JInternalFrame();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblUsuarios = new javax.swing.JTable();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mnuArchivoUsuario = new javax.swing.JMenu();
         mnuCrearUsuario = new javax.swing.JMenuItem();
-        mnuPromedioVehiculos = new javax.swing.JMenuItem();
-        mnuBuscarVehiculo = new javax.swing.JMenuItem();
+        jifLogin = new javax.swing.JInternalFrame();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtCorreoUsuario = new javax.swing.JTextPane();
+        txtContrasenia = new javax.swing.JPasswordField();
+        label1 = new java.awt.Label();
+        label2 = new java.awt.Label();
+        btnIngresar = new javax.swing.JButton();
+        jifListarVehiculos = new javax.swing.JInternalFrame();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblVehiculos = new javax.swing.JTable();
+        jifmCrearUsuario = new javax.swing.JInternalFrame();
+        txtCUNombre = new javax.swing.JTextField();
+        txtCUIdentificacion = new javax.swing.JTextField();
+        txtCUCorreoElectronico = new javax.swing.JTextField();
+        txtCUContrasenia = new javax.swing.JTextField();
+        cboxTipoUsuario = new javax.swing.JComboBox<>();
+        lblName = new java.awt.Label();
+        label4 = new java.awt.Label();
+        label5 = new java.awt.Label();
+        label7 = new java.awt.Label();
+        label8 = new java.awt.Label();
+        btnCrearUsr = new javax.swing.JButton();
+        menuBar = new javax.swing.JMenuBar();
+        mnuAdm = new javax.swing.JMenu();
+        mnuUsr = new javax.swing.JMenu();
+        mnuCrearUsr = new javax.swing.JRadioButtonMenuItem();
+        mnuListarUsr = new javax.swing.JMenuItem();
+        mnuVehiculos = new javax.swing.JMenu();
+        mnuListarVehiculos = new javax.swing.JMenuItem();
         mnuCerrarSesion = new javax.swing.JMenuItem();
         mnuSalir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        txtContrasenia.addActionListener(new java.awt.event.ActionListener()
+        jifUsuarios.setClosable(true);
+        jifUsuarios.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        jifUsuarios.setIconifiable(true);
+        jifUsuarios.setMaximizable(true);
+        jifUsuarios.setResizable(true);
+        jifUsuarios.setVisible(false);
+
+        tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][]
+            {
+
+            },
+            new String []
+            {
+                "Nombre", "Correo Electronico", "Identificacion", "Tipo de usuario"
+            }
+        )
+        {
+            Class[] types = new Class []
+            {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex)
+            {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tblUsuarios);
+
+        mnuArchivoUsuario.setText("Archivo");
+
+        mnuCrearUsuario.setText("Crear Usuario");
+        mnuCrearUsuario.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                txtContraseniaActionPerformed(evt);
+                mnuCrearUsuarioActionPerformed(evt);
             }
         });
+        mnuArchivoUsuario.add(mnuCrearUsuario);
 
-        jLabel1.setText("*Correo Electronico");
+        jMenuBar1.add(mnuArchivoUsuario);
 
-        jLabel2.setText("*Contraseña");
+        jifUsuarios.setJMenuBar(jMenuBar1);
 
-        jLabel3.setText("ALQUILER DE VEHÍCULOS");
+        javax.swing.GroupLayout jifUsuariosLayout = new javax.swing.GroupLayout(jifUsuarios.getContentPane());
+        jifUsuarios.getContentPane().setLayout(jifUsuariosLayout);
+        jifUsuariosLayout.setHorizontalGroup(
+            jifUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jifUsuariosLayout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jifUsuariosLayout.setVerticalGroup(
+            jifUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jifUsuariosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(141, Short.MAX_VALUE))
+        );
+
+        desktopPane.add(jifUsuarios);
+        jifUsuarios.setBounds(10, 10, 630, 350);
+
+        jifLogin.setTitle("Login");
+        jifLogin.setVisible(true);
+
+        jScrollPane1.setViewportView(txtCorreoUsuario);
+
+        label1.setText("*Correo Ususario");
+
+        label2.setText("*Contrseña");
 
         btnIngresar.setText("Ingresar");
         btnIngresar.addActionListener(new java.awt.event.ActionListener()
@@ -111,56 +201,230 @@ public class MDIVehiculo extends javax.swing.JFrame
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(390, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtCorreoUsuario)
-                                .addComponent(txtContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(39, 39, 39))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnIngresar)
-                        .addGap(131, 131, 131))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(249, 249, 249)
-                .addComponent(jLabel3)
-                .addGap(0, 297, Short.MAX_VALUE))
+        javax.swing.GroupLayout jifLoginLayout = new javax.swing.GroupLayout(jifLogin.getContentPane());
+        jifLogin.getContentPane().setLayout(jifLoginLayout);
+        jifLoginLayout.setHorizontalGroup(
+            jifLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jifLoginLayout.createSequentialGroup()
+                .addGap(142, 142, 142)
+                .addGroup(jifLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jifLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane1)
+                        .addComponent(txtContrasenia)
+                        .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)))
+                .addContainerGap(18, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jifLoginLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnIngresar)
+                .addGap(103, 103, 103))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtCorreoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+        jifLoginLayout.setVerticalGroup(
+            jifLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jifLoginLayout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnIngresar)
-                .addGap(47, 47, 47))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
-        desktopPane.add(jPanel1);
-        jPanel1.setBounds(0, 0, 670, 520);
+        desktopPane.add(jifLogin);
+        jifLogin.setBounds(180, 130, 410, 270);
 
-        mnuVehiculo.setMnemonic('f');
-        mnuVehiculo.setText("Archivo");
-        mnuVehiculo.setEnabled(false);
+        jifListarVehiculos.setClosable(true);
+        jifListarVehiculos.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        jifListarVehiculos.setIconifiable(true);
+        jifListarVehiculos.setMaximizable(true);
+        jifListarVehiculos.setResizable(true);
+        jifListarVehiculos.setVisible(false);
 
-        mnuListarVehiculos.setMnemonic('o');
-        mnuListarVehiculos.setText("Listar Vehículos");
+        tblVehiculos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][]
+            {
+
+            },
+            new String []
+            {
+                "Matricula", "Kilometraje", "Estado", "Valor Alquiler", "Tipo de Vehiculo"
+            }
+        )
+        {
+            Class[] types = new Class []
+            {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Boolean.class, java.lang.Double.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex)
+            {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tblVehiculos);
+
+        javax.swing.GroupLayout jifListarVehiculosLayout = new javax.swing.GroupLayout(jifListarVehiculos.getContentPane());
+        jifListarVehiculos.getContentPane().setLayout(jifListarVehiculosLayout);
+        jifListarVehiculosLayout.setHorizontalGroup(
+            jifListarVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jifListarVehiculosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jifListarVehiculosLayout.setVerticalGroup(
+            jifListarVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jifListarVehiculosLayout.createSequentialGroup()
+                .addContainerGap(17, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(189, 189, 189))
+        );
+
+        desktopPane.add(jifListarVehiculos);
+        jifListarVehiculos.setBounds(50, 30, 500, 350);
+        jifListarVehiculos.getAccessibleContext().setAccessibleDescription("");
+
+        jifmCrearUsuario.setClosable(true);
+        jifmCrearUsuario.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        jifmCrearUsuario.setIconifiable(true);
+        jifmCrearUsuario.setMaximizable(true);
+        jifmCrearUsuario.setResizable(true);
+        jifmCrearUsuario.setVisible(false);
+
+        txtCUIdentificacion.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                txtCUIdentificacionActionPerformed(evt);
+            }
+        });
+
+        cboxTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Adm", "Usr", "Client", " ", " ", " " }));
+        cboxTipoUsuario.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                cboxTipoUsuarioActionPerformed(evt);
+            }
+        });
+
+        lblName.setText("Nombre");
+
+        label4.setText("Identificación");
+
+        label5.setText("Correo Electronico");
+
+        label7.setText("Tipo de usuario");
+
+        label8.setText("Contraseña");
+
+        btnCrearUsr.setText("Crear");
+        btnCrearUsr.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnCrearUsrActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jifmCrearUsuarioLayout = new javax.swing.GroupLayout(jifmCrearUsuario.getContentPane());
+        jifmCrearUsuario.getContentPane().setLayout(jifmCrearUsuarioLayout);
+        jifmCrearUsuarioLayout.setHorizontalGroup(
+            jifmCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jifmCrearUsuarioLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(jifmCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addGroup(jifmCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCUCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jifmCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(txtCUContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jifmCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cboxTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCUNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCUIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(121, 121, 121))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jifmCrearUsuarioLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCrearUsr)
+                .addGap(139, 139, 139))
+        );
+        jifmCrearUsuarioLayout.setVerticalGroup(
+            jifmCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jifmCrearUsuarioLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(jifmCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboxTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jifmCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jifmCrearUsuarioLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtCUNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtCUIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23)
+                        .addComponent(txtCUCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(jifmCrearUsuarioLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23)))
+                .addGroup(jifmCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCUContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addComponent(btnCrearUsr)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
+        desktopPane.add(jifmCrearUsuario);
+        jifmCrearUsuario.setBounds(10, 10, 220, 280);
+
+        mnuAdm.setMnemonic('f');
+        mnuAdm.setText("Administrador");
+
+        mnuUsr.setText("Usuaros");
+
+        mnuCrearUsr.setSelected(true);
+        mnuCrearUsr.setText("Crear Usuario");
+        mnuCrearUsr.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                mnuCrearUsrActionPerformed(evt);
+            }
+        });
+        mnuUsr.add(mnuCrearUsr);
+
+        mnuListarUsr.setText("Listar Usuarios");
+        mnuListarUsr.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                mnuListarUsrActionPerformed(evt);
+            }
+        });
+        mnuUsr.add(mnuListarUsr);
+
+        mnuAdm.add(mnuUsr);
+
+        mnuVehiculos.setText("Vehículos");
+
+        mnuListarVehiculos.setText("Listar Vehiculos");
         mnuListarVehiculos.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -168,26 +432,11 @@ public class MDIVehiculo extends javax.swing.JFrame
                 mnuListarVehiculosActionPerformed(evt);
             }
         });
-        mnuVehiculo.add(mnuListarVehiculos);
+        mnuVehiculos.add(mnuListarVehiculos);
 
-        mnuCrearUsuario.setMnemonic('s');
-        mnuCrearUsuario.setText("Crear Usuario");
-        mnuCrearUsuario.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                mnuCrearUsuarioActionPerformed(evt);
-            }
-        });
-        mnuVehiculo.add(mnuCrearUsuario);
+        mnuAdm.add(mnuVehiculos);
 
-        mnuPromedioVehiculos.setMnemonic('a');
-        mnuPromedioVehiculos.setText("Reporte promedio");
-        mnuVehiculo.add(mnuPromedioVehiculos);
-
-        mnuBuscarVehiculo.setText("Buscar Vehículo");
-        mnuVehiculo.add(mnuBuscarVehiculo);
-
+        mnuCerrarSesion.setMnemonic('a');
         mnuCerrarSesion.setText("Cerrar Sesión");
         mnuCerrarSesion.addActionListener(new java.awt.event.ActionListener()
         {
@@ -196,7 +445,7 @@ public class MDIVehiculo extends javax.swing.JFrame
                 mnuCerrarSesionActionPerformed(evt);
             }
         });
-        mnuVehiculo.add(mnuCerrarSesion);
+        mnuAdm.add(mnuCerrarSesion);
 
         mnuSalir.setMnemonic('x');
         mnuSalir.setText("Salir");
@@ -207,9 +456,9 @@ public class MDIVehiculo extends javax.swing.JFrame
                 mnuSalirActionPerformed(evt);
             }
         });
-        mnuVehiculo.add(mnuSalir);
+        mnuAdm.add(mnuSalir);
 
-        menuBar.add(mnuVehiculo);
+        menuBar.add(mnuAdm);
 
         setJMenuBar(menuBar);
 
@@ -217,11 +466,11 @@ public class MDIVehiculo extends javax.swing.JFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 667, Short.MAX_VALUE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
         );
 
         pack();
@@ -231,23 +480,31 @@ public class MDIVehiculo extends javax.swing.JFrame
         System.exit(0);
     }//GEN-LAST:event_mnuSalirActionPerformed
 
-    private void mnuListarVehiculosActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuListarVehiculosActionPerformed
-    {//GEN-HEADEREND:event_mnuListarVehiculosActionPerformed
+    private void llenarTablaUsr()
+    {
+        DefaultTableModel model = (DefaultTableModel) tblUsuarios.getModel();
+        model.getDataVector().removeAllElements();
+        for (Usuario usuario : controlUsuario.getUsuarios())
+        {
+            model.addRow(usuario.obtenerArregloObjeto());
+        }
+        tblUsuarios.setModel(model);
 
-    }//GEN-LAST:event_mnuListarVehiculosActionPerformed
+    }
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnIngresarActionPerformed
     {//GEN-HEADEREND:event_btnIngresarActionPerformed
         // TODO add your handling code here:
+
         if (txtCorreoUsuario.getText() == null || txtCorreoUsuario.getText().compareTo("") == 0)
         {
             JOptionPane.showMessageDialog(this,
-                "Debe diligenciar el correo", "Datos Faltantes", 2);
+                    "Debe diligenciar el correo", "Datos Faltantes", 2);
         }
         else if (txtContrasenia.getPassword().length == 0)
         {
             JOptionPane.showMessageDialog(this,
-                "Debe diligenciar la contraseña", "Datos Faltantes", 2);
+                    "Debe diligenciar la contraseña", "Datos Faltantes", 2);
         }
         else
         {
@@ -263,49 +520,194 @@ public class MDIVehiculo extends javax.swing.JFrame
                 if (usuarioAutenticado == null)
                 {
                     JOptionPane.showMessageDialog(this,
-                        "Datos Erróneos", "Datos Erróneos", 0);
+                            "Datos Erróneos", "Datos Erróneos", 0);
                 }
                 else
                 {
+                    controlUsuario = new GestionUsuario();
+
                     controlVehiculo = new GestionVehiculo();
                     String nombreUsr = usuarioAutenticado.getNombre().toUpperCase();
 
                     JOptionPane.showMessageDialog(this,
-                        "Bienvenido " + nombreUsr, "Bienvenido", 1);
-                    mnuVehiculo.setEnabled(true);
+                            "Bienvenido " + nombreUsr, "Bienvenido", 1);
+                    mnuVehiculos.setEnabled(true);
                     gestionarPermisosMenu();
-                    //                    jfrmLogin.hide();
+                    jifLogin.hide();
                 }
             }
             else
             {
                 JOptionPane.showMessageDialog(this,
-                    "El correo no tiene un formato válido", "Datos Erróneos", 0);
+                        "El correo no tiene un formato válido", "Datos Erróneos", 0);
             }
         }
-    }//GEN-LAST:event_btnIngresarActionPerformed
 
-    private void txtContraseniaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtContraseniaActionPerformed
-    {//GEN-HEADEREND:event_txtContraseniaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtContraseniaActionPerformed
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void mnuCerrarSesionActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuCerrarSesionActionPerformed
     {//GEN-HEADEREND:event_mnuCerrarSesionActionPerformed
-        // TODO add your handling code here:
-        mnuVehiculo.setEnabled(false);
+
+        mnuAdm.setEnabled(false);
         txtCorreoUsuario.setText("");
         txtContrasenia.setText("");
         usuarioAutenticado = null;
         iniciarMenus(false);
-       // jfrmLogin.show();
+        jifLogin.show();
+
     }//GEN-LAST:event_mnuCerrarSesionActionPerformed
 
     private void mnuCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuCrearUsuarioActionPerformed
     {//GEN-HEADEREND:event_mnuCrearUsuarioActionPerformed
         // TODO add your handling code here:
-        
+
+
     }//GEN-LAST:event_mnuCrearUsuarioActionPerformed
+
+    private void mnuListarUsrActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuListarUsrActionPerformed
+    {//GEN-HEADEREND:event_mnuListarUsrActionPerformed
+        // TODO add your handling code here:
+        controlUsuario.llenarUsuarios();
+        llenarTablaUsr();
+        jifUsuarios.repaint();
+        jifUsuarios.show();
+        if (jifUsuarios.isIcon())
+        {
+            try
+            {
+                jifUsuarios.setMaximum(true);
+            }
+            catch (PropertyVetoException ex)
+            {
+                Logger.getLogger(MDIVehiculo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_mnuListarUsrActionPerformed
+    private void llenarTablaVhs()
+    {
+        DefaultTableModel model = (DefaultTableModel) tblVehiculos.getModel();
+        model.getDataVector().removeAllElements();
+        for (AbstractVehiculo vehiculo : controlVehiculo.getVehiculos())
+        {
+            model.addRow(vehiculo.obtenerArregloVehiculo());
+        }
+        tblVehiculos.setModel(model);
+
+    }
+    private void mnuListarVehiculosActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuListarVehiculosActionPerformed
+    {//GEN-HEADEREND:event_mnuListarVehiculosActionPerformed
+        // TODO add your handling code here:
+        controlVehiculo.llenarVehiculos();
+        llenarTablaVhs();
+        jifListarVehiculos.repaint();
+        jifListarVehiculos.show();
+        if (jifListarVehiculos.isIcon())
+        {
+            try
+            {
+                jifListarVehiculos.setMaximum(true);
+            }
+            catch (PropertyVetoException ex)
+            {
+                Logger.getLogger(MDIVehiculo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }//GEN-LAST:event_mnuListarVehiculosActionPerformed
+
+    private void txtCUIdentificacionActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtCUIdentificacionActionPerformed
+    {//GEN-HEADEREND:event_txtCUIdentificacionActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtCUIdentificacionActionPerformed
+
+    private void mnuCrearUsrActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuCrearUsrActionPerformed
+    {//GEN-HEADEREND:event_mnuCrearUsrActionPerformed
+
+        jifmCrearUsuario.repaint();
+        jifmCrearUsuario.show();
+        if (jifmCrearUsuario.isIcon())
+        {
+            try
+            {
+                jifmCrearUsuario.setMaximum(true);
+            }
+            catch (PropertyVetoException ex)
+            {
+                Logger.getLogger(MDIVehiculo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuCrearUsrActionPerformed
+
+    private void btnCrearUsrActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCrearUsrActionPerformed
+    {//GEN-HEADEREND:event_btnCrearUsrActionPerformed
+        // TODO add your handling code here:
+        controlUsuario.getTipoUsuarios();
+        TipoUsuario[] tipos;
+        
+        if (cboxTipoUsuario.getSelectedItem().toString().equals("Adm") || cboxTipoUsuario.getSelectedItem().toString().equals("Usr"))
+        {
+            if (txtCUNombre.getText() == null || txtCUNombre.getText().compareTo("") == 0)
+            {
+                JOptionPane.showMessageDialog(this, "Debe escribir su nombre", "Datos Faltantes", 2);
+            }
+            else if (txtCUIdentificacion.getText() == null || txtCUIdentificacion.getText().compareTo("") == 0)
+            {
+                JOptionPane.showMessageDialog(this, "Debe escribir su identificacion", "Datos Faltantes", 2);
+            }
+            else if (txtCUCorreoElectronico.getText() == null || txtCUCorreoElectronico.getText().compareTo("") == 0)
+            {
+                JOptionPane.showMessageDialog(this, "Debe escribir un correo electronico", "Datos Faltantes", 2);
+            }
+            else if (txtCUContrasenia.getText() == null || txtCUContrasenia.getText().compareTo("") == 0)
+            {
+                JOptionPane.showMessageDialog(this, "Debe escribir una contraseña", "Datos Faltantes", 2);
+            }
+            else{ 
+                
+             String codigo =  cboxTipoUsuario.getSelectedItem().toString().toLowerCase();
+                byte numTipo = leer.convertirTipoUsr(codigo);
+                tipos = controlUsuario.getTipoUsuarios();
+                Usuario usr = new Usuario(txtCUIdentificacion.getText(), txtCUNombre.getText(), txtCUCorreoElectronico.getText(), txtCUContrasenia.getText(),tipos[numTipo] );
+                    
+            try {
+                controlUsuario.adicionarUsuario(usr);
+                llenarTablaUsr();
+                txtCUNombre.setText("");
+                txtCUIdentificacion.setText("");
+                txtCUCorreoElectronico.setText("");
+                txtCUContrasenia.setText("");
+            } catch (VehiculoExcepcion ex) {
+               JOptionPane.showMessageDialog(this,
+                   ex.getMessage() , "error en el usuario", 0);
+            }
+        }
+        }
+            else
+            {
+                if (txtCUNombre.getText() == null || txtCUNombre.getText().compareTo("") == 0)
+                {
+                    JOptionPane.showMessageDialog(this, "Debe escribir su nombre", "Datos Faltantes", 2);
+                }
+                else if (txtCUIdentificacion.getText() == null || txtCUIdentificacion.getText().compareTo("") == 0)
+                {
+                    JOptionPane.showMessageDialog(this, "Debe escribir su identificacion", "Datos Faltantes", 2);
+                }
+
+            }
+
+    }//GEN-LAST:event_btnCrearUsrActionPerformed
+
+    private void cboxTipoUsuarioActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cboxTipoUsuarioActionPerformed
+    {//GEN-HEADEREND:event_cboxTipoUsuarioActionPerformed
+        // TODO add your handling code here:  if (cboxTipoUsuario.getSelectedItem()=="Seleccionar"){
+        if (cboxTipoUsuario.getSelectedItem().toString().equals("Client"))
+        {
+            txtCUCorreoElectronico.setEnabled(false);
+            txtCUContrasenia.setEnabled(false);
+
+        }
+    }//GEN-LAST:event_cboxTipoUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -357,22 +759,44 @@ public class MDIVehiculo extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton btnIngresar;
+    private javax.swing.JButton btnCrearUsr;
+    private javax.swing.JButton btnIngresar;
+    private javax.swing.JComboBox<String> cboxTipoUsuario;
     private javax.swing.JDesktopPane desktopPane;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JInternalFrame jifListarVehiculos;
+    private javax.swing.JInternalFrame jifLogin;
+    private javax.swing.JInternalFrame jifUsuarios;
+    private javax.swing.JInternalFrame jifmCrearUsuario;
+    private java.awt.Label label1;
+    private java.awt.Label label2;
+    private java.awt.Label label4;
+    private java.awt.Label label5;
+    private java.awt.Label label7;
+    private java.awt.Label label8;
+    private java.awt.Label lblName;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenuItem mnuBuscarVehiculo;
+    private javax.swing.JMenu mnuAdm;
+    private javax.swing.JMenu mnuArchivoUsuario;
     private javax.swing.JMenuItem mnuCerrarSesion;
+    private javax.swing.JRadioButtonMenuItem mnuCrearUsr;
     private javax.swing.JMenuItem mnuCrearUsuario;
+    private javax.swing.JMenuItem mnuListarUsr;
     private javax.swing.JMenuItem mnuListarVehiculos;
-    private javax.swing.JMenuItem mnuPromedioVehiculos;
     private javax.swing.JMenuItem mnuSalir;
-    private javax.swing.JMenu mnuVehiculo;
+    private javax.swing.JMenu mnuUsr;
+    private javax.swing.JMenu mnuVehiculos;
+    private javax.swing.JTable tblUsuarios;
+    private javax.swing.JTable tblVehiculos;
+    private javax.swing.JTextField txtCUContrasenia;
+    private javax.swing.JTextField txtCUCorreoElectronico;
+    private javax.swing.JTextField txtCUIdentificacion;
+    private javax.swing.JTextField txtCUNombre;
     private javax.swing.JPasswordField txtContrasenia;
-    private javax.swing.JTextField txtCorreoUsuario;
+    private javax.swing.JTextPane txtCorreoUsuario;
     // End of variables declaration//GEN-END:variables
 
 }

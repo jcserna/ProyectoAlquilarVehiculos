@@ -13,51 +13,22 @@ import java.io.Serializable;
  */
 public class TipoUsuario implements Serializable
 {
-   // private byte codigo;
-    private  byte codigo;
+
+    private String codigo;
     private String descripcion;
 
-//    public TipoUsuario(String codigo, String descripcion)
-//    {
-//        this.codigo = codigo;
-//        this.descripcion = descripcion;
-//    }
-
-//    public String getCodigo()
-//    {
-//        return codigo;
-//    }
-//
-//    public void setCodigo(String codigo)
-//    {
-//        this.codigo = codigo;
-//    }
-//
-//    
-//    public String getDescripcion()
-//    {
-//        return descripcion;
-//    }
-//
-//    public void setDescripcion(String descripcion)
-//    {
-//        this.descripcion = descripcion;
-//    }
-//    
-    // ¿Debo utilizar toString si todos los atributos son de tipo String?
-
-    public TipoUsuario(byte codigo, String descripcion)
+    public TipoUsuario(String codigo, String descripcion)
     {
         this.codigo = codigo;
         this.descripcion = descripcion;
     }
 
-    public byte getCodigo()
+    public String getCodigo()
     {
         return codigo;
     }
 
-    public void setCodigo(byte codigo)
+    public void setCodigo(String codigo)
     {
         this.codigo = codigo;
     }
@@ -71,6 +42,10 @@ public class TipoUsuario implements Serializable
     {
         this.descripcion = descripcion;
     }
-    
-    
+
+        @Override
+    public String toString()
+    {
+        return descripcion;
+    }
 }

@@ -6,8 +6,12 @@
 package alquilervehiculo.gestion;
 
 import alquilervehiculo.modelo.AbstractVehiculo;
+import alquilervehiculo.modelo.Coche;
+import alquilervehiculo.modelo.Furgoneta;
+import alquilervehiculo.modelo.Moto;
 import alquilervehiculo.utilidades.LeerArchivoPlano;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,5 +20,28 @@ import java.util.List;
  */
 public class GestionVehiculo implements Serializable
 {
- 
+   private List<AbstractVehiculo> vehiculos;
+
+    public List<AbstractVehiculo> getVehiculos()
+    {
+        return vehiculos;
+    }
+
+    public void setVehiculos(List<AbstractVehiculo> vehiculos)
+    {
+        this.vehiculos = vehiculos;
+    }
+  
+    
+    public GestionVehiculo () {
+        llenarVehiculos();
+    }
+    
+    public void llenarVehiculos (){
+        vehiculos = new ArrayList<>();
+        
+        vehiculos.add(new Moto("abc123", 10, true, 15, true));
+        vehiculos.add(new Furgoneta("cba321", 20, true, 123, (short)12));
+        vehiculos.add(new Coche("qwe123", 30, true, 254, true));
+    }
 }

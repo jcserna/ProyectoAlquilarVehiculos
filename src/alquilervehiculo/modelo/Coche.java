@@ -5,19 +5,21 @@
  */
 package alquilervehiculo.modelo;
 
-
-
-public class Moto extends AbstractVehiculo 
+/**
+ *
+ * @author Camilo
+ */
+public class Coche extends AbstractVehiculo 
 {
+public boolean extras;
 
-public boolean casco;
-
-    public Moto(String matricula, int km, boolean estado, double valorAlquiler, boolean casco)
+    public Coche(String matricula, int km, boolean estado, double valorAlquiler, boolean extras)
     {
         super(matricula, km, estado, valorAlquiler);
-        this.casco= casco;
+        this.extras = extras;
     }
 
+// Crear clase interface calcularAlquiler
 
     @Override
     public String mostrarDatos()
@@ -42,6 +44,7 @@ public boolean casco;
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 
 
 

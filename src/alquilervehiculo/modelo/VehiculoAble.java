@@ -1,4 +1,4 @@
-/*
+        /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -14,5 +14,5 @@ public interface VehiculoAble
     public void alquilar();
     public void devolver (int kmFinal);
     public double calcularAlquiler(int km);
-    public String mostrarDatos();
+    public String mostrarDatos( ); // Debe haber algun parametro?
 }

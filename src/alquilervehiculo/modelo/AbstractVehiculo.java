@@ -5,6 +5,8 @@
  */
 package alquilervehiculo.modelo;
 
+import java.util.logging.Logger;
+
 /**
  *
  * @author Camilo
@@ -16,27 +18,74 @@ public abstract class AbstractVehiculo implements VehiculoAble
     public int km;
     public boolean estado;
     public double valorAlquiler;
+
+    public AbstractVehiculo(String matricula, int km, boolean estado, double valorAlquiler)
+    {
+        this.matricula = matricula;
+        this.km = km;
+        this.estado = estado;
+        this.valorAlquiler = valorAlquiler;
+    }
+
+    public String getMatricula()
+    {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula)
+    {
+        this.matricula = matricula;
+    }
+
+    public int getKm()
+    {
+        return km;
+    }
+
+    public void setKm(int km)
+    {
+        this.km = km;
+    }
+
+    public boolean isEstado()
+    {
+        return estado;
+    }
+
     
 
-
-
-
-   
-    @Override
-    public void alquilar()
+    public void setEstado(boolean estado)
     {
+        this.estado = estado;
+    }
+
+    public double getValorAlquiler()
+    {
+        return valorAlquiler;
+    }
+
+    public void setValorAlquiler(double valorAlquiler)
+    {
+        this.valorAlquiler = valorAlquiler;
     }
     
+    
+
     @Override
-    public void devolver(int kmFinal)
-    {
-    }
+    public abstract String mostrarDatos();
 
     @Override
     public abstract double calcularAlquiler(int km);
 
-    
     @Override
-    public abstract String mostrarDatos();
-    //En el diagrma de clases aparece void para ésta clase
+    public abstract void devolver(int kmFinal);
+
+    @Override
+    public abstract void alquilar();
+
+       public Object[] obtenerArregloVehiculo(){
+        Object[] datoV={getMatricula(), getKm(), isEstado(), getValorAlquiler(), getClass().getName()};
+        return datoV;
+    }
+
 }

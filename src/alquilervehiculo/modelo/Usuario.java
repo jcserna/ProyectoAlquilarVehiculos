@@ -81,15 +81,18 @@ public class Usuario implements Serializable
     {
         this.tipoUsuario = tipoUsuario;
     }
-
+                
     @Override
     public String toString()
     {
         return nombre;
     }
+   
 
-    
-
+     public Object[] obtenerArregloObjeto(){
+        Object[] dato={getNombre(), getCorreoElectronico(), getCedula(), getTipoUsuario().toString()};
+        return dato;
+    }
  
 
     
