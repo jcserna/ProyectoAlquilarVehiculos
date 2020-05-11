@@ -19,6 +19,12 @@ public class Furgoneta extends AbstractVehiculo
         this.capacidad = capacidad;
     }
 
+    public Furgoneta(String matricula, int km, boolean estado, double valorAlquiler)
+    {
+        super(matricula, km, estado, valorAlquiler);
+    }
+    
+
     @Override
     public String mostrarDatos()
     {

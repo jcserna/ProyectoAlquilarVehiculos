@@ -5,6 +5,7 @@
  */
 package alquilervehiculo.gestion;
 
+import alquilervehiculo.excepciones.VehiculoExcepcion;
 import alquilervehiculo.modelo.AbstractVehiculo;
 import alquilervehiculo.modelo.Coche;
 import alquilervehiculo.modelo.Furgoneta;
@@ -44,4 +45,33 @@ public class GestionVehiculo implements Serializable
         vehiculos.add(new Furgoneta("cba321", 20, true, 123, (short)12));
         vehiculos.add(new Coche("qwe123", 30, true, 254, true));
     }
+    
+       public void adicionarVehiculo(AbstractVehiculo vehiculo) throws VehiculoExcepcion
+    {
+        if(validarExistenciaVehiculo(vehiculo))
+        {
+
+            throw new VehiculoExcepcion("El vehiculo con matricula: "+ vehiculo.getMatricula() + 
+                    " ya existe");
+        }
+        else
+        {            
+          
+            vehiculos.add(vehiculo);
+          
+        }
+    }
+    
+    private boolean validarExistenciaVehiculo(AbstractVehiculo vehiculo)
+    {
+        for(AbstractVehiculo vehi: this.vehiculos)
+        {
+            if(vehi.getMatricula().compareTo(vehiculo.getMatricula())==0)
+            {
+                return true;
+            }
+        }        
+        return false;
+    }
+    
 }

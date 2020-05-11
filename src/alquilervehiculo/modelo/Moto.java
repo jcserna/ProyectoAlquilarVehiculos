@@ -18,6 +18,12 @@ public boolean casco;
         this.casco= casco;
     }
 
+    public Moto(String matricula, int km, boolean estado, double valorAlquiler)
+    {
+        super(matricula, km, estado, valorAlquiler);
+    }
+    
+
 
     @Override
     public String mostrarDatos()

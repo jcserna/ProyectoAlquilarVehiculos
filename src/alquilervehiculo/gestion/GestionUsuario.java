@@ -6,6 +6,7 @@
 package alquilervehiculo.gestion;
 
 import alquilervehiculo.excepciones.VehiculoExcepcion;
+import alquilervehiculo.modelo.Cliente;
 import alquilervehiculo.modelo.TipoUsuario;
 import alquilervehiculo.modelo.Usuario;
 import alquilervehiculo.utilidades.LeerArchivoPlano;
@@ -24,6 +25,7 @@ public class GestionUsuario
     // Set, List, HashTable 
     //ArrayList - Polimorfismo
     private List<Usuario> usuarios;
+    private List<Cliente> clientes;
 
     public TipoUsuario[] getTipoUsuarios()
     {
@@ -97,6 +99,7 @@ public class GestionUsuario
 //        {            //agrego a la lista
 
             usuarios.add(usuario);
+            
             // agregarla en el archivo
 //        }
     }

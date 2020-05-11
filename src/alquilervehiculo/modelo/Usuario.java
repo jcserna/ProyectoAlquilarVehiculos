@@ -89,6 +89,11 @@ public class Usuario implements Serializable
     }
    
 
+         public Object[] obtenerArregloUsuario(){
+        Object[] dato={getNombre(), getCedula(), getCorreoElectronico(),getPasswd(), getTipoUsuario().toString()};
+        return dato;
+    }
+         
      public Object[] obtenerArregloObjeto(){
         Object[] dato={getNombre(), getCorreoElectronico(), getCedula(), getTipoUsuario().toString()};
         return dato;

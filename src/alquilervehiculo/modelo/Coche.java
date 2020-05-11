@@ -19,6 +19,12 @@ public boolean extras;
         this.extras = extras;
     }
 
+    public Coche(String matricula, int km, boolean estado, double valorAlquiler)
+    {
+        super(matricula, km, estado, valorAlquiler);
+    }
+    
+
 // Crear clase interface calcularAlquiler
 
     @Override
