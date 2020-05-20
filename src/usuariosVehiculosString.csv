@@ -1,3 +1,4 @@
 cedula ;nombre ;correo electronico;password;tipo de usuario 
-123456789;juan;adm@adm.com;12345;adm 
+123456789;juan;adm@adm.com;123;adm 
 987654321;camilo;camise07@hotmail.com;54321;usr
+cliente; 12344

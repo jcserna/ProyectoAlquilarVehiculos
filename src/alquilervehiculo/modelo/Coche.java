@@ -5,6 +5,9 @@
  */
 package alquilervehiculo.modelo;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  *
  * @author Camilo
@@ -23,20 +26,38 @@ public boolean extras;
     {
         super(matricula, km, estado, valorAlquiler);
     }
+
+    public boolean isExtras()
+    {
+        return extras;
+    }
     
 
-// Crear clase interface calcularAlquiler
+  @Override
+    public Object getOtro()
+    {
+               String mensaje;
+        
+        if (isExtras()== true){
+        mensaje = "El coche tiene extras";
+                }
+        else {
+        mensaje = "El coche no tiene extras";
+        }
+        return mensaje;
+    }
 
     @Override
-    public String mostrarDatos()
+    public Object mostrarDatos()
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public double calcularAlquiler(int km)
+    public double calcularAlquiler(int dias)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        double precio = dias*valorAlquiler;
+        return precio;
     }
 
     @Override
@@ -48,7 +69,7 @@ public boolean extras;
     @Override
     public void alquilar()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setEstado(false);
     }
 
 

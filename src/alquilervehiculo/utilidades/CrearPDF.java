@@ -6,6 +6,7 @@
 package alquilervehiculo.utilidades;
 
 import alquilervehiculo.modelo.AbstractVehiculo;
+import alquilervehiculo.modelo.AlquilaVehiculo;
 import alquilervehiculo.modelo.Usuario;
 import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.kernel.colors.ColorConstants;
@@ -31,29 +32,35 @@ import javax.swing.JOptionPane;
  */
 public class CrearPDF
 {
-    
+
     public static final String DESTINO = "./src/pdfs/tabla.pdf";
 
-    public static void main(String... args) {
-        try {
+    public static void main(String... args)
+    {
+        try
+        {
             File archivo = new File(DESTINO);
             archivo.getParentFile().mkdirs();
             CrearPDF ejemplo = new CrearPDF();
-            ejemplo.crearDocumentoPdf(DESTINO); 
+            ejemplo.crearDocumentoPdf(DESTINO);
             ejemplo.abrirEjemplotabla2();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
 
-    public void crearDocumentoPdf(String destino) throws Exception {
+    public void crearDocumentoPdf(String destino) throws Exception
+    {
 
         PdfDocument documento = new PdfDocument(new PdfWriter(destino));
         Document doc = new Document(documento);
         PdfFont font = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
 
         Table tabla = new Table(8);
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 6; i++)
+        {
             Cell cell = new Cell().add(new Paragraph("Ejemplo")
                     .setFont(font)
                     .setFontColor(ColorConstants.BLACK));
@@ -69,37 +76,48 @@ public class CrearPDF
 
     }
 
-    public void abrirEjemplotabla() {
-        try {
+    public void abrirEjemplotabla()
+    {
+        try
+        {
             File archivo = new File(DESTINO);
             Desktop.getDesktop().open(archivo);
-        } catch (IOException ex) {
+        }
+        catch (IOException ex)
+        {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
     }
-    
-    public void abrirDocumento(String ruta) {
-        try {
+
+    public void abrirDocumento(String ruta)
+    {
+        try
+        {
             File archivo = new File(ruta);
             Desktop.getDesktop().open(archivo);
-        } catch (IOException ex) {
+        }
+        catch (IOException ex)
+        {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
     }
-    
 
-    public void abrirEjemplotabla2() {
-        try {
+    public void abrirEjemplotabla2()
+    {
+        try
+        {
             File archivo = new File(DESTINO);
             Runtime.getRuntime().exec("cmd /c start " + archivo);
-        } catch (IOException ex) {
+        }
+        catch (IOException ex)
+        {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
-    
-    private Cell obtenerCeldaEncabezado(String texto) throws IOException 
+
+    private Cell obtenerCeldaEncabezado(String texto) throws IOException
     {
         PdfFont font = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
         Cell celda = new Cell().add(new Paragraph(texto)
@@ -111,72 +129,99 @@ public class CrearPDF
         return celda;
     }
 
-    public void crearDocumentoPdfVehiculos(String destino, List<AbstractVehiculo> listado) throws Exception {
+    public void crearDocumentoPdfVehiculos(String destino, List<AbstractVehiculo> listado) throws Exception
+    {
         File archivo = new File(destino);
         archivo.getParentFile().mkdirs();
         PdfDocument documento = new PdfDocument(new PdfWriter(destino));
-        Document doc = new Document(documento);      
+        Document doc = new Document(documento);
 
-        Table tabla = new Table(5);        
-        tabla.addCell(obtenerCeldaEncabezado("Matricula"));        
+        Table tabla = new Table(5);
+        tabla.addCell(obtenerCeldaEncabezado("Matricula"));
         tabla.addCell(obtenerCeldaEncabezado("Kilometraje"));
         tabla.addCell(obtenerCeldaEncabezado("Estado"));
         tabla.addCell(obtenerCeldaEncabezado("Valor Alquiler"));
         tabla.addCell(obtenerCeldaEncabezado("Tipo de Vehículo"));
-        
-        for(AbstractVehiculo veh: listado)
+
+        for (AbstractVehiculo veh : listado)
         {
             tabla.startNewRow();
             for (int i = 0; i < veh.obtenerArregloVehiculo().length; i++)
             {
-                Object datos [] = veh.obtenerArregloVehiculo();
+                Object datos[] = veh.obtenerArregloVehiculo();
                 String tmp = datos[i].toString();
-               tabla.addCell(tmp);
-               
+                tabla.addCell(tmp);
+
             }
 //            tabla.addCell(veh.getMatricula());
 //            tabla.addCell(veh.getMatricula());
 //            tabla.addCell(String.valueOf(mat.getCapacidadAlumnos()));
         }
-              
 
         doc.add(tabla);
         doc.close();
 
     }
-        public void crearDocumentoPdfUsuarios(String destino, List<Usuario> listado) throws Exception {
+
+    public void crearDocumentoPdfVehiculosAlquilados(String destino, List<AlquilaVehiculo> listado) throws Exception
+    {
         File archivo = new File(destino);
         archivo.getParentFile().mkdirs();
         PdfDocument documento = new PdfDocument(new PdfWriter(destino));
-        Document doc = new Document(documento);      
+        Document doc = new Document(documento);
 
-        Table tabla = new Table(5);        
-        tabla.addCell(obtenerCeldaEncabezado("Nombre"));        
+        Table tabla = new Table(5);
+        tabla.addCell(obtenerCeldaEncabezado("Vehículo"));
+        tabla.addCell(obtenerCeldaEncabezado("Cliente"));
+        tabla.addCell(obtenerCeldaEncabezado("Fecha Alquiler"));
+        tabla.addCell(obtenerCeldaEncabezado("Fecha Devolución"));
+
+        for (AlquilaVehiculo veh : listado)
+        {
+            tabla.startNewRow();
+            for (int i = 0; i < veh.obtenerArregloVehiculoAlquilado().length; i++)
+            {
+                Object datos[] = veh.obtenerArregloVehiculoAlquilado();
+                String tmp = datos[i].toString();
+                tabla.addCell(tmp);
+
+            }
+        }
+
+        doc.add(tabla);
+        doc.close();
+
+    }
+
+    public void crearDocumentoPdfUsuarios(String destino, List<Usuario> listado) throws Exception
+    {
+        File archivo = new File(destino);
+        archivo.getParentFile().mkdirs();
+        PdfDocument documento = new PdfDocument(new PdfWriter(destino));
+        Document doc = new Document(documento);
+
+        Table tabla = new Table(5);
+        tabla.addCell(obtenerCeldaEncabezado("Nombre"));
         tabla.addCell(obtenerCeldaEncabezado("Cedula"));
         tabla.addCell(obtenerCeldaEncabezado("Correo Electronico"));
         tabla.addCell(obtenerCeldaEncabezado("Contraseña"));
         tabla.addCell(obtenerCeldaEncabezado("Tipo de Usuario"));
-        
-        for(Usuario usr: listado)
+
+        for (Usuario usr : listado)
         {
             tabla.startNewRow();
             for (int i = 0; i < usr.obtenerArregloUsuario().length; i++)
             {
-                Object datos [] = usr.obtenerArregloUsuario();
+                Object datos[] = usr.obtenerArregloUsuario();
                 String tmp = datos[i].toString();
-               tabla.addCell(tmp);
-               
+                tabla.addCell(tmp);
+
             }
-//            tabla.addCell(veh.getMatricula());
-//            tabla.addCell(veh.getMatricula());
-//            tabla.addCell(String.valueOf(mat.getCapacidadAlumnos()));
         }
-              
 
         doc.add(tabla);
         doc.close();
 
     }
-    
-    
+
 }

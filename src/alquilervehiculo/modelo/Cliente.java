@@ -11,16 +11,16 @@ package alquilervehiculo.modelo;
  */
 public class Cliente
 {
+
     public String cedula;
     public String nombre;
 
-    public Cliente(String cedula, String nombre)
+    public Cliente(String nombre, String cedula)
     {
-        this.cedula = cedula;
         this.nombre = nombre;
+        this.cedula = cedula;
+
     }
-    
-    //Los atributos deben ser privados?
 
     public String getCedula()
     {
@@ -42,6 +42,12 @@ public class Cliente
         this.nombre = nombre;
     }
 
-    
-    
+    public Object[] obtenerArregloCliente()
+    {
+        Object[] datoC =
+        {
+            getNombre(), getCedula(), "Cliente"
+        };
+        return datoC;
+    }
 }

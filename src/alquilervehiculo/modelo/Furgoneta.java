@@ -5,6 +5,9 @@
  */
 package alquilervehiculo.modelo;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  *
  * @author Camilo
@@ -23,18 +26,31 @@ public class Furgoneta extends AbstractVehiculo
     {
         super(matricula, km, estado, valorAlquiler);
     }
-    
 
-    @Override
-    public String mostrarDatos()
+    public short getCapacidad()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return capacidad;
+    }
+    
+      @Override
+    public Object getOtro()
+    {
+        String mensaje = "Tiene "+getCapacidad()+" de capcidad";
+        
+        return mensaje;
     }
 
     @Override
-    public double calcularAlquiler(int km)
+    public Object mostrarDatos()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return obtenerArregloVehiculo();
+    }
+
+    @Override
+    public double calcularAlquiler(int dias)
+    {
+                double precio = dias*valorAlquiler;
+        return precio;
     }
 
     @Override
@@ -46,7 +62,7 @@ public class Furgoneta extends AbstractVehiculo
     @Override
     public void alquilar()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setEstado(false);
     }
 
  

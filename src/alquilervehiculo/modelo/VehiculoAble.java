@@ -5,6 +5,9 @@
  */
 package alquilervehiculo.modelo;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  *
  * @author Camilo
@@ -13,6 +16,6 @@ public interface VehiculoAble
 {
     public void alquilar();
     public void devolver (int kmFinal);
-    public double calcularAlquiler(int km);
-    public String mostrarDatos( ); // Debe haber algun parametro?
+    public double calcularAlquiler(int dias);
+    public Object mostrarDatos( ); // Cambio String a Object por facilidad de mostrar en la vista 
 }

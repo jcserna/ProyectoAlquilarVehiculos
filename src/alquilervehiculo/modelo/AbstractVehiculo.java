@@ -5,6 +5,7 @@
  */
 package alquilervehiculo.modelo;
 
+import java.util.Calendar;
 import java.util.logging.Logger;
 
 /**
@@ -18,6 +19,7 @@ public abstract class AbstractVehiculo implements VehiculoAble
     public int km;
     public boolean estado;
     public double valorAlquiler;
+    public Object otro; 
 
     public AbstractVehiculo(String matricula, int km, boolean estado, double valorAlquiler)
     {
@@ -25,6 +27,7 @@ public abstract class AbstractVehiculo implements VehiculoAble
         this.km = km;
         this.estado = estado;
         this.valorAlquiler = valorAlquiler;
+        
     }
 
     public String getMatricula()
@@ -52,6 +55,16 @@ public abstract class AbstractVehiculo implements VehiculoAble
         return estado;
     }
 
+    public Object getOtro()
+    {
+        return otro;
+    }
+
+    public void setOtro(Object otro)
+    {
+        this.otro = otro;
+    }
+
     
 
     public void setEstado(boolean estado)
@@ -72,19 +85,20 @@ public abstract class AbstractVehiculo implements VehiculoAble
     
 
     @Override
-    public abstract String mostrarDatos();
+    public abstract Object mostrarDatos();
 
     @Override
-    public abstract double calcularAlquiler(int km);
+    public abstract double calcularAlquiler(int dias);
 
     @Override
     public abstract void devolver(int kmFinal);
 
     @Override
     public abstract void alquilar();
+    
 
        public Object[] obtenerArregloVehiculo(){
-        Object[] datoV={getMatricula(), getKm(), isEstado(), getValorAlquiler(), getClass().getName()};
+        Object[] datoV={getMatricula(), getKm(), isEstado(), getValorAlquiler(), getClass().getSimpleName()};
         return datoV;
     }
 

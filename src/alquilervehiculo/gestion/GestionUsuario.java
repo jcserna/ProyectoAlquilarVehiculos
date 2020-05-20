@@ -21,11 +21,20 @@ public class GestionUsuario
 {
 
     private TipoUsuario[] tipoUsuarios;
-    //Cambiar por una collección java.util
-    // Set, List, HashTable 
-    //ArrayList - Polimorfismo
     private List<Usuario> usuarios;
     private List<Cliente> clientes;
+    
+    
+    String codigo;
+    public String getCodigo()
+    {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo)
+    {
+        this.codigo = codigo;
+    }
 
     public TipoUsuario[] getTipoUsuarios()
     {
@@ -47,14 +56,23 @@ public class GestionUsuario
         this.usuarios = usuarios;
     }
 
-    String codigo;
+    public List<Cliente> getClientes()
+    {
+        return clientes;
+    }
+
+    public void setClientes(List<Cliente> clientes)
+    {
+        this.clientes = clientes;
+    }
+
+    
 
     public GestionUsuario()
     {
         llenarTiposUsuario();
         llenarUsuarios();
-        
-
+        llenarClientes();
     }
 
     private void llenarTiposUsuario()
@@ -71,6 +89,13 @@ public class GestionUsuario
     {
         //cargar el csv
         usuarios = LeerArchivoPlano.cargarUsuarios(tipoUsuarios);
+
+    }
+    
+        public void llenarClientes()
+    {
+        //cargar el csv
+        clientes = LeerArchivoPlano.cargarClientes();
 
     }
 
@@ -98,9 +123,9 @@ public class GestionUsuario
 //        else
 //        {            //agrego a la lista
 
-            usuarios.add(usuario);
-            
-            // agregarla en el archivo
+        usuarios.add(usuario);
+
+        // agregarla en el archivo
 //        }
     }
 
@@ -115,6 +140,33 @@ public class GestionUsuario
 //        }
 //        return false;
 //    }
+    public void adicionarCliente(Cliente cliente) throws VehiculoExcepcion
+    {
+//        if (validarExistenciaUsuario(usuario))
+//        {
+//            ///gritar que esa materia ya existe
+//            throw new VehiculoExcepcion("El usuario " + usuario.getCedula() + " ya existe");
+//        }
+//        else
+//        {            //agrego a la lista
 
+        clientes.add(cliente);
 
+        // agregarla en el archivo
+//        }
+    }
+        public Cliente encontrarCliente(String id) 
+    {
+              for (Cliente cliente : getClientes())
+            {
+                Cliente cli;
+                if (id.equals(cliente.getNombre()))
+                {
+                    cli = cliente; 
+                    return cli;
+                }
+           
+            }
+            return null;
+    }
 }
