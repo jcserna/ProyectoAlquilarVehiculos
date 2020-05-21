@@ -55,10 +55,6 @@ public class GestionVehiculo implements Serializable
     public void llenarVehiculos()
     {
         vehiculos = new ArrayList<>();
-
-//        vehiculos.add(new Moto("abc123", 10, true, 15, true));
-//        vehiculos.add(new Furgoneta("cba321", 20, true, 123, (short)12));
-//        vehiculos.add(new Coche("qwe123", 30, true, 254, true));
         vehiculos = LeerArchivoPlano.cargarVehiculos();
     }
 
@@ -121,29 +117,14 @@ public class GestionVehiculo implements Serializable
 
     public void adicionarVehiculoAlquilado(AlquilaVehiculo alquilado) throws VehiculoExcepcion
     {
-        // vehiculosAlquilados = new ArrayList<>();
-
         vehiculosAlquilados.add(alquilado);
-        //       return vehiculoAlquilado;
     }
 
-       public void devolverVehiculoAlquilado(AlquilaVehiculo alquilado) throws VehiculoExcepcion
+       public void devolverVehiculoAlquilado(AlquilaVehiculo alquilado, int km) throws VehiculoExcepcion
     {
-        // vehiculosAlquilados = new ArrayList<>();
-
         vehiculosAlquilados.remove(alquilado);
-        //       return vehiculoAlquilado;
+        alquilado.getVehiculo().devolver(km);
     }
-//    public int calcularFecha(Date fecha1, Date fecha2)
-//    {
-//        int dias = -1;
-//        while (fecha1.before(fecha2) || fecha1.equals(fecha2))
-//        {
-//            dias++;
-//
-//        }
-//        return dias;
-//    }
 
     public int calcularDias(Calendar inicio, Calendar fin)
     {

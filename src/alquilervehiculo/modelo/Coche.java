@@ -62,14 +62,16 @@ public boolean extras;
     }
 
     @Override
-    public void devolver(int kmFinal)
+     public void devolver(int kmFinal)
     {
-             setEstado(true);
-        int kilometraje = getKm()+kmFinal;
-        String mensaje= "El vheículo ha sido devuelto, su nuevo kilometraje es "+kilometraje;
+        setEstado(true);
+        int kilometrajeUsado = kmFinal-getKm();       
+      String mensaje= "El usuario ha recorrido "+kilometrajeUsado+" kilometros"+
+              "\nEl vheículo ha sido devuelto, su nuevo kilometraje es "+kmFinal;
+         setKm(kmFinal);
         JOptionPane.showMessageDialog(null, mensaje);
     }
-
+     
     @Override
     public void alquilar()
     {

@@ -2,3 +2,4 @@ Tipo Vehicuo ;Matricula;Kilometraje;Disponibilidad;Precio ;Otro
 Moto;abc123;10;disponible;15;si
 Furgoneta;cba321;20;ocupado;43;10
 Coche;qwe123;30;disponible;32;no
+Furgoneta;aaa321;40;disponible;43;10
