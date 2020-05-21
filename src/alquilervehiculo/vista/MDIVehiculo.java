@@ -18,12 +18,9 @@ import alquilervehiculo.modelo.TipoUsuario;
 import alquilervehiculo.modelo.Usuario;
 import alquilervehiculo.utilidades.CrearPDF;
 import alquilervehiculo.utilidades.LeerArchivoPlano;
-
+import com.sun.media.sound.AlawCodec;
 import java.beans.PropertyVetoException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -209,6 +206,18 @@ public class MDIVehiculo extends javax.swing.JFrame
         jScrollPane8 = new javax.swing.JScrollPane();
         tblVehiculosAlquilados = new javax.swing.JTable();
         btnPDFAlquilados = new javax.swing.JButton();
+        jifmDevolverVehiculo = new javax.swing.JInternalFrame();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        tblDevolverVehiculo = new javax.swing.JTable();
+        label23 = new java.awt.Label();
+        label24 = new java.awt.Label();
+        label27 = new java.awt.Label();
+        txtKilometrajeInicial = new javax.swing.JTextField();
+        txtValorAlquiler = new javax.swing.JTextField();
+        txtKilometrajeFinal = new javax.swing.JTextField();
+        btnDevolver = new javax.swing.JButton();
+        txtMatriulaDevolver = new javax.swing.JTextField();
+        label28 = new java.awt.Label();
         menuBar = new javax.swing.JMenuBar();
         mnuAdm = new javax.swing.JMenu();
         mnuUsr = new javax.swing.JMenu();
@@ -219,6 +228,7 @@ public class MDIVehiculo extends javax.swing.JFrame
         jCrearVehiculo = new javax.swing.JMenuItem();
         mnuVehiculosAlquilados = new javax.swing.JMenuItem();
         mnuAlquilar = new javax.swing.JMenuItem();
+        mnuDevolverVehiculo = new javax.swing.JMenuItem();
         mnuCerrarSesion = new javax.swing.JMenuItem();
         mnuSalir = new javax.swing.JMenuItem();
 
@@ -354,18 +364,19 @@ public class MDIVehiculo extends javax.swing.JFrame
         jifLoginLayout.setHorizontalGroup(
             jifLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jifLoginLayout.createSequentialGroup()
-                .addGap(142, 142, 142)
                 .addGroup(jifLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jifLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane1)
-                        .addComponent(txtContrasenia)
-                        .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)))
-                .addContainerGap(18, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jifLoginLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnIngresar)
-                .addGap(103, 103, 103))
+                    .addGroup(jifLoginLayout.createSequentialGroup()
+                        .addGap(142, 142, 142)
+                        .addGroup(jifLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jifLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane1)
+                                .addComponent(txtContrasenia)
+                                .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE))))
+                    .addGroup(jifLoginLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnIngresar)))
+                .addGap(400, 400, 400))
         );
         jifLoginLayout.setVerticalGroup(
             jifLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -910,8 +921,8 @@ public class MDIVehiculo extends javax.swing.JFrame
             .addGroup(jifmAlquilarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jifmAlquilarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
-                    .addComponent(jScrollPane7)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
                     .addGroup(jifmAlquilarLayout.createSequentialGroup()
                         .addGroup(jifmAlquilarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jifmAlquilarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -931,7 +942,7 @@ public class MDIVehiculo extends javax.swing.JFrame
                             .addComponent(btnCalcularAlquiler))
                         .addGap(35, 35, 35))
                     .addComponent(txtOpcionesExtras, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jifmAlquilarLayout.setVerticalGroup(
             jifmAlquilarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -962,7 +973,7 @@ public class MDIVehiculo extends javax.swing.JFrame
                         .addComponent(btnCalcularAlquiler)
                         .addGap(27, 27, 27)
                         .addComponent(btnAlquilar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtOpcionesExtras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1006,10 +1017,10 @@ public class MDIVehiculo extends javax.swing.JFrame
             .addGroup(jifmVehiculosAlquiladosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jifmVehiculosAlquiladosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
                     .addGroup(jifmVehiculosAlquiladosLayout.createSequentialGroup()
                         .addComponent(btnPDFAlquilados)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jifmVehiculosAlquiladosLayout.setVerticalGroup(
@@ -1019,11 +1030,116 @@ public class MDIVehiculo extends javax.swing.JFrame
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnPDFAlquilados)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         desktopPane.add(jifmVehiculosAlquilados);
         jifmVehiculosAlquilados.setBounds(20, 10, 380, 320);
+
+        jifmDevolverVehiculo.setClosable(true);
+        jifmDevolverVehiculo.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        jifmDevolverVehiculo.setIconifiable(true);
+        jifmDevolverVehiculo.setMaximizable(true);
+        jifmDevolverVehiculo.setResizable(true);
+        jifmDevolverVehiculo.setVisible(false);
+
+        tblDevolverVehiculo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][]
+            {
+
+            },
+            new String []
+            {
+                "Vehiculo ", "Cliente", "Fecha Alquiler", "Fecha Devolucion"
+            }
+        ));
+        tblDevolverVehiculo.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                tblDevolverVehiculoMouseClicked(evt);
+            }
+        });
+        jScrollPane9.setViewportView(tblDevolverVehiculo);
+
+        label23.setText("Kilometraje Inicial");
+
+        label24.setText("Kilometraje Final");
+
+        label27.setText("Valor por día");
+
+        btnDevolver.setText("Devolver");
+        btnDevolver.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnDevolverActionPerformed(evt);
+            }
+        });
+
+        label28.setText("Vehículo a devolver");
+
+        javax.swing.GroupLayout jifmDevolverVehiculoLayout = new javax.swing.GroupLayout(jifmDevolverVehiculo.getContentPane());
+        jifmDevolverVehiculo.getContentPane().setLayout(jifmDevolverVehiculoLayout);
+        jifmDevolverVehiculoLayout.setHorizontalGroup(
+            jifmDevolverVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jifmDevolverVehiculoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jifmDevolverVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jifmDevolverVehiculoLayout.createSequentialGroup()
+                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(89, Short.MAX_VALUE))
+                    .addGroup(jifmDevolverVehiculoLayout.createSequentialGroup()
+                        .addGroup(jifmDevolverVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMatriulaDevolver, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtValorAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(55, 55, 55)
+                        .addGroup(jifmDevolverVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtKilometrajeInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label23, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtKilometrajeFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label24, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jifmDevolverVehiculoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnDevolver)
+                .addGap(200, 200, 200))
+        );
+        jifmDevolverVehiculoLayout.setVerticalGroup(
+            jifmDevolverVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jifmDevolverVehiculoLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jifmDevolverVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtMatriulaDevolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jifmDevolverVehiculoLayout.createSequentialGroup()
+                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addGroup(jifmDevolverVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jifmDevolverVehiculoLayout.createSequentialGroup()
+                                .addComponent(label23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtKilometrajeInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(4, 4, 4)))
+                .addGap(12, 12, 12)
+                .addComponent(btnDevolver)
+                .addGap(1, 1, 1)
+                .addGroup(jifmDevolverVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jifmDevolverVehiculoLayout.createSequentialGroup()
+                        .addComponent(label24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtKilometrajeFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jifmDevolverVehiculoLayout.createSequentialGroup()
+                        .addComponent(label27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtValorAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(133, Short.MAX_VALUE))
+        );
+
+        desktopPane.add(jifmDevolverVehiculo);
+        jifmDevolverVehiculo.setBounds(40, 10, 618, 465);
 
         mnuAdm.setMnemonic('f');
         mnuAdm.setText("Archivo");
@@ -1096,6 +1212,16 @@ public class MDIVehiculo extends javax.swing.JFrame
             }
         });
         mnuAdm.add(mnuAlquilar);
+
+        mnuDevolverVehiculo.setText("Devolver Vehículo");
+        mnuDevolverVehiculo.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                mnuDevolverVehiculoActionPerformed(evt);
+            }
+        });
+        mnuAdm.add(mnuDevolverVehiculo);
 
         mnuCerrarSesion.setMnemonic('a');
         mnuCerrarSesion.setText("Cerrar Sesión");
@@ -1198,9 +1324,19 @@ public class MDIVehiculo extends javax.swing.JFrame
 
     }
 
-    
+    private void llenarTablaDevolver()
     {
+        DefaultTableModel model = (DefaultTableModel) tblDevolverVehiculo.getModel();
+        model.getDataVector().removeAllElements();
+        for (AlquilaVehiculo vehiculo : controlVehiculo.getVehiculosAlquilados())
+        {
+            model.addRow(vehiculo.obtenerArregloVehiculoAlquilado());
+
+        }
+        tblDevolverVehiculo.setModel(model);
+
     }
+
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnIngresarActionPerformed
     {//GEN-HEADEREND:event_btnIngresarActionPerformed
@@ -1698,7 +1834,6 @@ public class MDIVehiculo extends javax.swing.JFrame
         txtClienteSeleccionado.setText(String.valueOf(tblCliente.getValueAt(seleccionado, 0)));
 
     }//GEN-LAST:event_tblClienteMouseClicked
-    
 
 ////                if(txtMatriculaSelec.getText()!=null){
 ////       AbstractVehiculo veh = controlVehiculo.encontrarVehiculo(txtMatriculaSelec.getText());
@@ -1706,9 +1841,6 @@ public class MDIVehiculo extends javax.swing.JFrame
 ////        txtValorAlquiler.setText(valor);}
     private void btnAlquilarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAlquilarActionPerformed
     {//GEN-HEADEREND:event_btnAlquilarActionPerformed
-
-        AbstractVehiculo veh;
-        Cliente cli;
 
         if (txtClienteSeleccionado.getText() == null || txtClienteSeleccionado.getText().compareTo("") == 0)
         {
@@ -1733,28 +1865,39 @@ public class MDIVehiculo extends javax.swing.JFrame
         else
         {
 
-            cli = controlUsuario.encontrarCliente(txtClienteSeleccionado.getText());
-            veh = controlVehiculo.encontrarVehiculo(txtMatriculaSelec.getText());
+//            Cliente cli = controlUsuario.encontrarCliente(txtClienteSeleccionado.getText());
+//            AbstractVehiculo veh = controlVehiculo.encontrarVehiculo(txtMatriculaSelec.getText());
 //            String valor = String.valueOf(veh.calcularAlquiler(calcularDias(jDateEntregaAlquiler.getDate(), jDateDevolucionAlquiler.getDate())));
 //            txtValorAlquiler.setText(valor);
-
-            if (veh.isEstado() == false)
+            if (controlVehiculo.encontrarVehiculo(txtMatriculaSelec.getText()).isEstado() == false)
             {
-                JOptionPane.showMessageDialog(this, "El vhículo de matricula " + veh.getMatricula() + " se encuentra ocupado");
+//                JOptionPane.showMessageDialog(this, "El vehículo de matricula " + veh.getMatricula() + " se encuentra ocupado");
+//                txtMatriculaSelec.setText("");
+                JOptionPane.showMessageDialog(this, "El vehículo de matricula " + txtMatriculaSelec.getText()
+                        + " se encuentra ocupado");
                 txtMatriculaSelec.setText("");
             }
             else
             {
-                veh.alquilar();
-               llenarAlquilarVehiculos();
 
-         
+                //AlquilaVehiculo alquilado = new AlquilaVehiculo(veh, jDateEntregaAlquiler.getDate(), jDateDevolucionAlquiler.getDate(), cli);
+                AlquilaVehiculo alquilado = new AlquilaVehiculo(controlVehiculo.encontrarVehiculo(txtMatriculaSelec.getText()),
+                        jDateEntregaAlquiler.getDate(), jDateDevolucionAlquiler.getDate(), controlUsuario.encontrarCliente(txtClienteSeleccionado.getText()));
+                llenarTablaVhs();
+                controlVehiculo.encontrarVehiculo(txtMatriculaSelec.getText()).alquilar();
                 try
                 {
-            AlquilaVehiculo vehiculoAlquilado = controlVehiculo.adicionarVehiculoAlquilado(veh, jDateEntregaAlquiler.getDate(), jDateDevolucionAlquiler.getDate(), cli);
-           llenarVehiculosAlquilados();
-                 
-                    JOptionPane.showMessageDialog(this, "El vehiculo " + vehiculoAlquilado.getVehiculo().getMatricula() + " fue alquilado a " + vehiculoAlquilado.getCliente().getNombre());
+
+//                    controlVehiculo.adicionarVehiculoAlquilado(veh, jDateEntregaAlquiler.getDate(), jDateDevolucionAlquiler.getDate(), cli);
+                    controlVehiculo.adicionarVehiculoAlquilado(alquilado);
+                    llenarAlquilarVehiculos();
+                    llenarVehiculosAlquilados();
+                    JOptionPane.showMessageDialog(this, "El vehiculo " + txtMatriculaSelec.getText()
+                            + " fue alquilado a " + txtClienteSeleccionado.getText());
+                    txtMatriculaSelec.setText("");
+                    txtClienteSeleccionado.setText("");
+                    System.out.println(controlVehiculo.getVehiculosAlquilados().toArray().length);
+//                    JOptionPane.showMessageDialog(this, "El vehiculo " + veh.getMatricula() + " fue alquilado a " + cli.getNombre());
 
                 }
                 catch (VehiculoExcepcion ex)
@@ -1773,6 +1916,7 @@ public class MDIVehiculo extends javax.swing.JFrame
         controlVehiculo.llenarVehiculos();
         llenarTablaCli();
         llenarAlquilarVehiculos();
+        llenarTablaVhs();
         jifmAlquilar.repaint();
         jifmAlquilar.show();
 
@@ -1797,7 +1941,7 @@ public class MDIVehiculo extends javax.swing.JFrame
     {//GEN-HEADEREND:event_tblAlquilerVehiculoMouseClicked
         // TODO add your handling code here:
 
-     int seleccionado = tblAlquilerVehiculo.rowAtPoint(evt.getPoint());
+        int seleccionado = tblAlquilerVehiculo.rowAtPoint(evt.getPoint());
         txtMatriculaSelec.setText(String.valueOf(tblAlquilerVehiculo.getValueAt(seleccionado, 0)));
         AbstractVehiculo vehiculoSeleccionado = controlVehiculo.encontrarVehiculo(txtMatriculaSelec.getText());
         txtOpcionesExtras.setText(vehiculoSeleccionado.getOtro().toString());
@@ -1817,7 +1961,7 @@ public class MDIVehiculo extends javax.swing.JFrame
             try
             {
 
-                jifmAlquilar.setMaximum(true);
+                jifmVehiculosAlquilados.setMaximum(true);
             }
             catch (PropertyVetoException ex)
             {
@@ -1854,7 +1998,7 @@ public class MDIVehiculo extends javax.swing.JFrame
 
     private void btnCalcularAlquilerActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnCalcularAlquilerActionPerformed
     {//GEN-HEADEREND:event_btnCalcularAlquilerActionPerformed
-       if (txtMatriculaSelec.getText() == null || txtMatriculaSelec.getText().compareTo("") == 0)
+        if (txtMatriculaSelec.getText() == null || txtMatriculaSelec.getText().compareTo("") == 0)
         {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un vehículo");
         }
@@ -1872,13 +2016,78 @@ public class MDIVehiculo extends javax.swing.JFrame
         }
         else
         {
-      int dias =  controlVehiculo.calcularDias(jDateEntregaAlquiler.getCalendar(), jDateDevolucionAlquiler.getCalendar());
-      AbstractVehiculo veh = controlVehiculo.encontrarVehiculo(txtMatriculaSelec.getText());
-      double valor =veh.calcularAlquiler(dias);
-      String mensaje= "El valor de vehículo "+veh.getMatricula()+ " por "+dias+" días, es de "+valor; 
-        JOptionPane.showMessageDialog(this, mensaje);
+            int dias = controlVehiculo.calcularDias(jDateEntregaAlquiler.getCalendar(), jDateDevolucionAlquiler.getCalendar());
+            AbstractVehiculo veh = controlVehiculo.encontrarVehiculo(txtMatriculaSelec.getText());
+            double valor = veh.calcularAlquiler(dias);
+            String mensaje = "El valor de vehículo " + veh.getMatricula() + " por " + dias + " días, es de " + valor;
+            JOptionPane.showMessageDialog(this, mensaje);
         }
     }//GEN-LAST:event_btnCalcularAlquilerActionPerformed
+
+    private void mnuDevolverVehiculoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuDevolverVehiculoActionPerformed
+    {//GEN-HEADEREND:event_mnuDevolverVehiculoActionPerformed
+        // TODO add your handling code here:
+
+        llenarTablaDevolver();
+        jifmDevolverVehiculo.repaint();
+        jifmDevolverVehiculo.show();
+
+        if (jifmDevolverVehiculo.isIcon())
+        {
+            try
+            {
+
+                jifmDevolverVehiculo.setMaximum(true);
+            }
+            catch (PropertyVetoException ex)
+            {
+                Logger.getLogger(MDIVehiculo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+    }//GEN-LAST:event_mnuDevolverVehiculoActionPerformed
+
+    private void tblDevolverVehiculoMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_tblDevolverVehiculoMouseClicked
+    {//GEN-HEADEREND:event_tblDevolverVehiculoMouseClicked
+        // TODO add your handling code here:
+        int seleccionado = tblDevolverVehiculo.rowAtPoint(evt.getPoint());
+        txtMatriulaDevolver.setText(String.valueOf(tblDevolverVehiculo.getValueAt(seleccionado, 0)));
+        AlquilaVehiculo vehiculoSeleccionado = controlVehiculo.encontrarVehiculoAlquilado(txtMatriulaDevolver.getText());
+        txtValorAlquiler.setText(vehiculoSeleccionado.getVehiculo().getValorAlquiler() + " por día");
+        txtKilometrajeInicial.setText(String.valueOf(vehiculoSeleccionado.getVehiculo().getKm()));
+
+    }//GEN-LAST:event_tblDevolverVehiculoMouseClicked
+
+    private void btnDevolverActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnDevolverActionPerformed
+    {//GEN-HEADEREND:event_btnDevolverActionPerformed
+        // TODO add your handling code here:
+        if (txtKilometrajeFinal.getText() == null || txtKilometrajeFinal.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(this, "Debe ingresar el kilometraje final");
+        }
+        else if(Integer.parseInt(txtKilometrajeInicial.getText())>Integer.parseInt(txtKilometrajeFinal.getText())){
+        
+        JOptionPane.showMessageDialog(this, "El kilometraje final debe ser mayor al inicial");
+        }
+        else
+        {
+            AlquilaVehiculo vehiculoDevolver = controlVehiculo.encontrarVehiculoAlquilado(txtMatriulaDevolver.getText());
+            try
+            {
+                controlVehiculo.devolverVehiculoAlquilado(vehiculoDevolver);
+                vehiculoDevolver.getVehiculo().devolver(Integer.parseInt(txtKilometrajeFinal.getText()));
+                llenarTablaDevolver();
+                llenarTablaVhs();
+                llenarVehiculosAlquilados();
+            }
+            catch (VehiculoExcepcion ex)
+            {
+                Logger.getLogger(MDIVehiculo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }//GEN-LAST:event_btnDevolverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1936,6 +2145,7 @@ public class MDIVehiculo extends javax.swing.JFrame
     private javax.swing.JButton btnCrearUsr;
     private javax.swing.JButton btnDescargarUsrPDF;
     private javax.swing.JButton btnDescargarpdfVehiculos;
+    private javax.swing.JButton btnDevolver;
     private javax.swing.JButton btnIngresar;
     private javax.swing.JButton btnPDFAlquilados;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -1953,6 +2163,7 @@ public class MDIVehiculo extends javax.swing.JFrame
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JCheckBox jcbCVCasco;
     private javax.swing.JCheckBox jcbCVCoche;
     private javax.swing.JCheckBox jcbCVExtras;
@@ -1965,6 +2176,7 @@ public class MDIVehiculo extends javax.swing.JFrame
     private javax.swing.JInternalFrame jifmAlquilar;
     private javax.swing.JInternalFrame jifmCrearUsuario;
     private javax.swing.JInternalFrame jifmCrearVehiculo;
+    private javax.swing.JInternalFrame jifmDevolverVehiculo;
     private javax.swing.JInternalFrame jifmVehiculosAlquilados;
     private java.awt.Label label1;
     private java.awt.Label label10;
@@ -1981,6 +2193,10 @@ public class MDIVehiculo extends javax.swing.JFrame
     private java.awt.Label label20;
     private java.awt.Label label21;
     private java.awt.Label label22;
+    private java.awt.Label label23;
+    private java.awt.Label label24;
+    private java.awt.Label label27;
+    private java.awt.Label label28;
     private java.awt.Label label3;
     private java.awt.Label label4;
     private java.awt.Label label5;
@@ -1996,6 +2212,7 @@ public class MDIVehiculo extends javax.swing.JFrame
     private javax.swing.JMenuItem mnuCerrarSesion;
     private javax.swing.JRadioButtonMenuItem mnuCrearUsr;
     private javax.swing.JMenuItem mnuCrearUsuario;
+    private javax.swing.JMenuItem mnuDevolverVehiculo;
     private javax.swing.JMenuItem mnuListarUsr;
     private javax.swing.JMenuItem mnuListarVehiculos;
     private javax.swing.JMenuItem mnuSalir;
@@ -2005,6 +2222,7 @@ public class MDIVehiculo extends javax.swing.JFrame
     private javax.swing.JSpinner spnCVCapFurg;
     private javax.swing.JTable tblAlquilerVehiculo;
     private javax.swing.JTable tblCliente;
+    private javax.swing.JTable tblDevolverVehiculo;
     private javax.swing.JTable tblUsuarios;
     private javax.swing.JTable tblVehiculos;
     private javax.swing.JTable tblVehiculosAlquilados;
@@ -2018,8 +2236,12 @@ public class MDIVehiculo extends javax.swing.JFrame
     private javax.swing.JTextPane txtClienteSeleccionado;
     private javax.swing.JPasswordField txtContrasenia;
     private javax.swing.JTextPane txtCorreoUsuario;
+    private javax.swing.JTextField txtKilometrajeFinal;
+    private javax.swing.JTextField txtKilometrajeInicial;
     private javax.swing.JTextField txtMatriculaSelec;
+    private javax.swing.JTextField txtMatriulaDevolver;
     private javax.swing.JTextField txtOpcionesExtras;
+    private javax.swing.JTextField txtValorAlquiler;
     private javax.swing.JTextField txtVerVehiculo;
     // End of variables declaration//GEN-END:variables
 

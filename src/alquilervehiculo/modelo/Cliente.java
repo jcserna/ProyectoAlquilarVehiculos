@@ -46,7 +46,7 @@ public class Cliente
     {
         Object[] datoC =
         {
-            getNombre(), getCedula(), "Cliente"
+            getNombre(), "",getCedula(), "Cliente"
         };
         return datoC;
     }

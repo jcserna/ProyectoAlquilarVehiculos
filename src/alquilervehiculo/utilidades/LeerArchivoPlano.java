@@ -40,7 +40,7 @@ public class LeerArchivoPlano
             archivo = new File("src/usuariosVehiculosString.csv");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
-            // Lectura del fichero
+            // Lectura del fichero            
             String linea;
             br.readLine();
             while ((linea = br.readLine()) != null)

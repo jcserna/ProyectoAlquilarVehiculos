@@ -8,16 +8,12 @@ package alquilervehiculo.gestion;
 import alquilervehiculo.excepciones.VehiculoExcepcion;
 import alquilervehiculo.modelo.AbstractVehiculo;
 import alquilervehiculo.modelo.AlquilaVehiculo;
-import alquilervehiculo.modelo.Cliente;
-import alquilervehiculo.modelo.Coche;
-import alquilervehiculo.modelo.Furgoneta;
-import alquilervehiculo.modelo.Moto;
 import alquilervehiculo.utilidades.LeerArchivoPlano;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
+
 import java.util.List;
 
 /**
@@ -28,9 +24,15 @@ public class GestionVehiculo implements Serializable
 {
 
     private List<AbstractVehiculo> vehiculos;
-    private  List<AlquilaVehiculo> vehiculosAlquilados;
+    private List<AlquilaVehiculo> vehiculosAlquilados  = new ArrayList<>();
 
-    public  List<AlquilaVehiculo> getVehiculosAlquilados()
+    public GestionVehiculo()
+    {
+        llenarVehiculos();
+        
+    }
+
+    public List<AlquilaVehiculo> getVehiculosAlquilados()
     {
         return vehiculosAlquilados;
     }
@@ -48,11 +50,6 @@ public class GestionVehiculo implements Serializable
     public void setVehiculos(List<AbstractVehiculo> vehiculos)
     {
         this.vehiculos = vehiculos;
-    }
-
-    public GestionVehiculo()
-    {
-        llenarVehiculos();
     }
 
     public void llenarVehiculos()
@@ -107,31 +104,54 @@ public class GestionVehiculo implements Serializable
         }
         return null;
     }
+      public AlquilaVehiculo encontrarVehiculoAlquilado(String matricula)
+    {
+        for (AlquilaVehiculo vehiculo : getVehiculosAlquilados())
+        {
+            AlquilaVehiculo veh;
+            if (matricula.equals(vehiculo.getVehiculo().getMatricula()))
+            {
+                veh = vehiculo;
+                return veh;
+            }
 
-    public AlquilaVehiculo adicionarVehiculoAlquilado(AbstractVehiculo vehiculo, Date fechaAlquiler, Date fechaDevolucion, Cliente cliente) throws VehiculoExcepcion
-    {
-        vehiculosAlquilados = new ArrayList<>();
-        AlquilaVehiculo vehiculoAlquilado = new AlquilaVehiculo(vehiculo, fechaAlquiler, fechaDevolucion, cliente);
-        vehiculosAlquilados.add(vehiculoAlquilado);
-        return vehiculoAlquilado;
-    }
-    
-     public int calcularFecha(Date fecha1, Date fecha2 )
-    {
-        int dias = -1;
-        while (fecha1.before(fecha2)||fecha1.equals(fecha2)){
-            dias++;
-           
         }
-        return dias;
+        return null;
     }
-     
-         public int calcularDias(Calendar inicio, Calendar fin)
+
+    public void adicionarVehiculoAlquilado(AlquilaVehiculo alquilado) throws VehiculoExcepcion
     {
+        // vehiculosAlquilados = new ArrayList<>();
+
+        vehiculosAlquilados.add(alquilado);
+        //       return vehiculoAlquilado;
+    }
+
+       public void devolverVehiculoAlquilado(AlquilaVehiculo alquilado) throws VehiculoExcepcion
+    {
+        // vehiculosAlquilados = new ArrayList<>();
+
+        vehiculosAlquilados.remove(alquilado);
+        //       return vehiculoAlquilado;
+    }
+//    public int calcularFecha(Date fecha1, Date fecha2)
+//    {
+//        int dias = -1;
+//        while (fecha1.before(fecha2) || fecha1.equals(fecha2))
+//        {
+//            dias++;
+//
+//        }
+//        return dias;
+//    }
+
+    public int calcularDias(Calendar inicio, Calendar fin)
+    {
+        
         if (inicio != null && fin != null)
         {
             Calendar fechaEntrega = inicio;
-            Calendar fechaDevolucion; 
+            Calendar fechaDevolucion;
             int dias = 0;
 
             while (inicio.before(fin) || inicio.equals(fin))

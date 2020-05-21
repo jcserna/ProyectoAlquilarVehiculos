@@ -7,6 +7,7 @@ package alquilervehiculo.modelo;
 
 import java.util.Calendar;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 
 
@@ -62,7 +63,10 @@ public boolean casco;
     @Override
     public void devolver(int kmFinal)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setEstado(true);
+        int kilometraje = getKm()+kmFinal;
+      String mensaje= "El vheículo ha sido devuelto, su nuevo kilometraje es "+kilometraje;
+        JOptionPane.showMessageDialog(null, mensaje);
     }
 
     @Override
