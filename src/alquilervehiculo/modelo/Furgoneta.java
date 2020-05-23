@@ -41,10 +41,13 @@ public class Furgoneta extends AbstractVehiculo
         return mensaje;
     }
 
-    @Override
-    public Object mostrarDatos()
+    public void mostrarDatos()
     {
-        return obtenerArregloVehiculo();
+      String mensaje = "Tiene "+getCapacidad()+" de capcidad";
+        JOptionPane.showMessageDialog(null, "Tipo de Vehiculo: " + getClass().getSimpleName()
+                + "\nMatricula: " + getMatricula()
+                + "\nKilometraje: " + getKm() + "\n"+mensaje
+       );
     }
 
     @Override

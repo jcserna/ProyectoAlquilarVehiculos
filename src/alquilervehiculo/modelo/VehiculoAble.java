@@ -17,5 +17,5 @@ public interface VehiculoAble
     public void alquilar();
     public void devolver (int kmFinal);
     public double calcularAlquiler(int dias);
-    public Object mostrarDatos( ); // Cambio String a Object por facilidad de mostrar en la vista 
+    public void mostrarDatos( ); // Cambio String a Object por facilidad de mostrar en la vista 
 }

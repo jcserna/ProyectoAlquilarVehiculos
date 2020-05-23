@@ -9,17 +9,15 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
-
-
-public class Moto extends AbstractVehiculo 
+public class Moto extends AbstractVehiculo
 {
 
-public boolean casco;
+    public boolean casco;
 
     public Moto(String matricula, int km, boolean estado, double valorAlquiler, boolean casco)
     {
         super(matricula, km, estado, valorAlquiler);
-        this.casco= casco;
+        this.casco = casco;
     }
 
     public Moto(String matricula, int km, boolean estado, double valorAlquiler)
@@ -36,27 +34,41 @@ public boolean casco;
     public Object getOtro()
     {
         String mensaje;
-        
-        if (isCasco()== true){
-        mensaje = "La moto tiene casco";
-                }
-        else {
-        mensaje = "La moto no tiene casco";
+
+        if (isCasco() == true)
+        {
+            mensaje = "La moto tiene casco";
+        }
+        else
+        {
+            mensaje = "La moto no tiene casco";
         }
         return mensaje;
     }
-    
 
     @Override
-    public Object mostrarDatos()
+    public void mostrarDatos()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String mensaje;
+
+        if (isCasco() == true)
+        {
+            mensaje = "La moto tiene casco";
+        }
+        else
+        {
+            mensaje = "La moto no tiene casco";
+        }
+        JOptionPane.showMessageDialog(null, "Tipo de Vehiculo: " + getClass().getSimpleName()
+                + "\nMatricula: " + getMatricula()
+                + "\nKilometraje: " + getKm() +"\n"+mensaje
+       );
     }
 
     @Override
     public double calcularAlquiler(int dias)
     {
-               double precio = dias*valorAlquiler;
+        double precio = dias * valorAlquiler;
         return precio;
     }
 
@@ -64,10 +76,10 @@ public boolean casco;
     public void devolver(int kmFinal)
     {
         setEstado(true);
-        int kilometrajeUsado = kmFinal-getKm();       
-      String mensaje= "El usuario ha recorrido "+kilometrajeUsado+" kilometros"+
-              "\nEl vheículo ha sido devuelto, su nuevo kilometraje es "+kmFinal;
-      setKm(kmFinal);
+        int kilometrajeUsado = kmFinal - getKm();
+        String mensaje = "El usuario ha recorrido " + kilometrajeUsado + " kilometros"
+                + "\nEl vheículo ha sido devuelto, su nuevo kilometraje es " + kmFinal;
+        setKm(kmFinal);
         JOptionPane.showMessageDialog(null, mensaje);
     }
 
@@ -76,7 +88,5 @@ public boolean casco;
     {
         setEstado(false);
     }
-
-
 
 }

@@ -13,9 +13,10 @@ import javax.swing.JOptionPane;
  *
  * @author Camilo
  */
-public class Coche extends AbstractVehiculo 
+public class Coche extends AbstractVehiculo
 {
-public boolean extras;
+
+    public boolean extras;
 
     public Coche(String matricula, int km, boolean estado, double valorAlquiler, boolean extras)
     {
@@ -32,53 +33,65 @@ public boolean extras;
     {
         return extras;
     }
-    
 
-  @Override
+    @Override
     public Object getOtro()
     {
-               String mensaje;
-        
-        if (isExtras()== true){
-        mensaje = "El coche tiene extras";
-                }
-        else {
-        mensaje = "El coche no tiene extras";
+        String mensaje;
+
+        if (isExtras() == true)
+        {
+            mensaje = "El coche tiene extras";
+        }
+        else
+        {
+            mensaje = "El coche no tiene extras";
         }
         return mensaje;
     }
 
-    @Override
-    public Object mostrarDatos()
+    public void mostrarDatos()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String mensaje;
+
+
+
+        if (isExtras() == true)
+        {
+            mensaje = "El coche tiene extras";
+        }
+        else
+        {
+            mensaje = "El coche no tiene extras";
+        }
+        JOptionPane.showMessageDialog(null, "Tipo de Vehiculo: " + getClass().getSimpleName()
+                + "\nMatricula: " + getMatricula()
+                + "\nKilometraje: " + getKm() +"\n"+mensaje
+       );
     }
 
     @Override
     public double calcularAlquiler(int dias)
     {
-        double precio = dias*valorAlquiler;
+        double precio = dias * valorAlquiler;
         return precio;
     }
 
     @Override
-     public void devolver(int kmFinal)
+    public void devolver(int kmFinal)
     {
         setEstado(true);
-        int kilometrajeUsado = kmFinal-getKm();       
-      String mensaje= "El usuario ha recorrido "+kilometrajeUsado+" kilometros"+
-              "\nEl vheículo ha sido devuelto, su nuevo kilometraje es "+kmFinal;
-         setKm(kmFinal);
+        int kilometrajeUsado = kmFinal - getKm();
+        String mensaje = "El usuario ha recorrido " + kilometrajeUsado + " kilometros"
+                + "\nEl vheículo ha sido devuelto, su nuevo kilometraje es " + kmFinal;
+        setKm(kmFinal);
         JOptionPane.showMessageDialog(null, mensaje);
     }
-     
+
     @Override
     public void alquilar()
     {
         setEstado(false);
     }
-
-
-
 
 }

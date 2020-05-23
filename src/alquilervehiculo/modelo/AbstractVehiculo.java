@@ -85,7 +85,7 @@ public abstract class AbstractVehiculo implements VehiculoAble
     
 
     @Override
-    public abstract Object mostrarDatos();
+    public abstract void mostrarDatos();
 
     @Override
     public abstract double calcularAlquiler(int dias);

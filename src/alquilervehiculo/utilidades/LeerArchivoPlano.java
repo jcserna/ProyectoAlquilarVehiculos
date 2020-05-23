@@ -24,8 +24,8 @@ import java.util.List;
  * @author Camilo
  */
 public class LeerArchivoPlano
-{   
-    
+{
+
     
     public static List<Usuario> cargarUsuarios(TipoUsuario[] tipos)
     {
@@ -48,34 +48,18 @@ public class LeerArchivoPlano
 
                 String[] datos = linea.split(";");
                 String codigo = datos[4];
+
+                byte numeroTipo = convertirTipoUsr(codigo);
+
+                Usuario usuario = new Usuario(datos[0], datos[1], datos[2], datos[3], tipos[ numeroTipo]);
               
-             
-           byte  numeroTipo =convertirTipoUsr(codigo);
-//                byte numeroTipo=0;
-//                
-//                switch (codigo){
-//                    case "adm":
-//                        numeroTipo=0;
-//                        break;
-//                    case "usr":
-//                        numeroTipo=1;
-//                        break;
-//                    case "clt":
-//                        numeroTipo=3;
-//                        break;
-//                }
-//                
-                
-                
-                
-                Usuario usuario = new Usuario(datos[0], datos[1], datos[2], datos[3], tipos[(byte)numeroTipo]);
                 listado.add(usuario);
 
             }
         }
         catch (Exception e)
         {
-            System.out.println("El archivo no existe = "  + e.getMessage());
+            System.out.println("El archivo no existe = " + e.getMessage());
         }
         finally
         {
@@ -95,7 +79,29 @@ public class LeerArchivoPlano
         return listado;
     }
 
-          public static List<Cliente> cargarClientes()
+        public static byte convertirTipoUsr(String codigo)
+    {
+        byte numeroTipo=2;
+
+        switch (codigo)
+        {
+            
+            case "adm":
+                numeroTipo = 0;
+                break;
+            case "usr":
+                numeroTipo = 1;
+                break;
+           case "otro":
+                numeroTipo = 2;
+                break;
+        
+               
+        }
+        return numeroTipo;
+    }
+    
+    public static List<Cliente> cargarClientes()
     {
         List<Cliente> listado = new ArrayList<>();
         File archivo = null;
@@ -139,11 +145,9 @@ public class LeerArchivoPlano
             }
         }
         return listado;
-    
+
     }
-        
-          
-    
+
     public static List<AbstractVehiculo> cargarVehiculos()
     {
         List<AbstractVehiculo> listadoVehiculos = new ArrayList<>();
@@ -169,46 +173,43 @@ public class LeerArchivoPlano
                 {
                     disponibilidad = true;
                 }
-                
-                       switch (tipoVehiculo){
+
+                switch (tipoVehiculo)
+                {
                     case "moto":
-                {
-                    boolean casco = false;
-                    if (datos[5].toLowerCase().equals("si"))
-                {
-                    casco = true;
-                }
-                    Moto moto = new Moto(datos[1], Integer.parseInt(datos[2]),disponibilidad, Double.parseDouble(datos[4]), true);
-                   listadoVehiculos.add(moto);
-                }
-                        break;
-                        
-                   case "furgoneta":
-                {
-          
-                    Furgoneta furgoneta = new Furgoneta(datos[1], Integer.parseInt(datos[2]),disponibilidad, Double.parseDouble(datos[4]), Short.parseShort(datos[5]));
-                   listadoVehiculos.add(furgoneta);
-                }
-                        break;
-                        
+                    {
+                        boolean casco = false;
+                        if (datos[5].toLowerCase().equals("si"))
+                        {
+                            casco = true;
+                        }
+                        Moto moto = new Moto(datos[1], Integer.parseInt(datos[2]), disponibilidad, Double.parseDouble(datos[4]), true);
+                        listadoVehiculos.add(moto);
+                    }
+                    break;
+
+                    case "furgoneta":
+                    {
+
+                        Furgoneta furgoneta = new Furgoneta(datos[1], Integer.parseInt(datos[2]), disponibilidad, Double.parseDouble(datos[4]), Short.parseShort(datos[5]));
+                        listadoVehiculos.add(furgoneta);
+                    }
+                    break;
+
                     case "coche":
-                {
-                    boolean extras = false;
-                    if (datos[5].toLowerCase().equals("si"))
-                {
-                    extras = true;
-                }
-                    Coche coche = new Coche(datos[1], Integer.parseInt(datos[2]),disponibilidad, Double.parseDouble(datos[4]), true);
-                   listadoVehiculos.add(coche);
-                }
-                        break;
+                    {
+                        boolean extras = false;
+                        if (datos[5].toLowerCase().equals("si"))
+                        {
+                            extras = true;
+                        }
+                        Coche coche = new Coche(datos[1], Integer.parseInt(datos[2]), disponibilidad, Double.parseDouble(datos[4]), true);
+                        listadoVehiculos.add(coche);
+                    }
+                    break;
 
                 }
-                
-                
-//                           AbstractVehiculo vehiculo = new AbstractVehiculo();
-                //como inicializar vehiculo
-                //         listadoVehiculos.add(vehiculo);
+
             }
         }
         catch (Exception e)
@@ -231,23 +232,6 @@ public class LeerArchivoPlano
         }
         return listadoVehiculos;
     }
-    
-        public static byte convertirTipoUsr(String codigo)
-    {
-        byte numeroTipo = 0;
 
-        switch (codigo)
-        {
-            case "adm":
-                numeroTipo = 0;
-                break;
-            case "usr":
-                numeroTipo = 1;
-                break;
-            case "clt":
-                numeroTipo = 3;
-                break;
-        }
-        return numeroTipo;
-    }
+
 }

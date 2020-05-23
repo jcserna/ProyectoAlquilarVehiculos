@@ -81,14 +81,14 @@ public class GestionUsuario
         tipoUsuarios = new TipoUsuario[3];
         tipoUsuarios[0] = new TipoUsuario("adm", "Administrador");
         tipoUsuarios[1] = new TipoUsuario("usr", "Usuario");
-        tipoUsuarios[2] = new TipoUsuario("otr", "Otro");
+        tipoUsuarios[2] = new TipoUsuario("otro", "Otro");
 
     }
 
     public void llenarUsuarios()
     {
         //cargar el csv
-        usuarios = LeerArchivoPlano.cargarUsuarios(tipoUsuarios);
+        usuarios = LeerArchivoPlano.cargarUsuarios(getTipoUsuarios());
 
     }
     
