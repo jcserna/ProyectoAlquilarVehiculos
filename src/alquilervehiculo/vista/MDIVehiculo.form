@@ -10,11 +10,12 @@
           <Properties>
             <Property name="mnemonic" type="int" value="102"/>
             <Property name="text" type="java.lang.String" value="Archivo"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <SubComponents>
             <Menu class="javax.swing.JMenu" name="mnuUsr">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Usuaros"/>
+                <Property name="text" type="java.lang.String" value="Usuarios"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="mnuListarUsr">
@@ -166,11 +167,15 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane2" alignment="0" pref="623" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" alignment="0" pref="594" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="label13" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnDescargarUsrPDF" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="btnDescargarUsrPDF" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
+                                      <Component id="btnDescargarPDFClientes" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -186,8 +191,11 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="144" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnDescargarUsrPDF" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="85" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnDescargarUsrPDF" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnDescargarPDFClientes" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="81" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -216,13 +224,21 @@
             </Container>
             <Component class="javax.swing.JButton" name="btnDescargarUsrPDF">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Descargar Lista"/>
+                <Property name="text" type="java.lang.String" value="Descargar Lista Usuario"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDescargarUsrPDFActionPerformed"/>
               </Events>
             </Component>
             <Component class="java.awt.Label" name="label13">
+            </Component>
+            <Component class="javax.swing.JButton" name="btnDescargarPDFClientes">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Descargar Lista Clientes"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDescargarPDFClientesActionPerformed"/>
+              </Events>
             </Component>
             <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
               <SubComponents>
@@ -320,8 +336,11 @@
             </Component>
             <Component class="java.awt.Label" name="label2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="*Contrse&#xf1;a"/>
+                <Property name="text" type="java.lang.String" value="*Contrase&#xf1;a"/>
               </Properties>
+              <AccessibilityProperties>
+                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="*Contrase&#xf1;a"/>
+              </AccessibilityProperties>
             </Component>
             <Component class="javax.swing.JButton" name="btnIngresar">
               <Properties>
@@ -852,8 +871,8 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane5" alignment="0" pref="474" max="32767" attributes="0"/>
-                          <Component id="jScrollPane7" alignment="0" pref="474" max="32767" attributes="0"/>
+                          <Component id="jScrollPane5" alignment="0" pref="419" max="32767" attributes="0"/>
+                          <Component id="jScrollPane7" alignment="0" pref="419" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
@@ -1090,7 +1109,7 @@
                       <Component id="jScrollPane8" min="-2" pref="130" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnPDFAlquilados" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="116" max="32767" attributes="0"/>
+                      <EmptySpace pref="108" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

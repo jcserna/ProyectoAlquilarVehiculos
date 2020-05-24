@@ -75,12 +75,27 @@ public class Moto extends AbstractVehiculo
     @Override
     public void devolver(int kmFinal)
     {
-        setEstado(true);
-        int kilometrajeUsado = kmFinal - getKm();
-        String mensaje = "El usuario ha recorrido " + kilometrajeUsado + " kilometros"
-                + "\nEl vheículo ha sido devuelto, su nuevo kilometraje es " + kmFinal;
-        setKm(kmFinal);
-        JOptionPane.showMessageDialog(null, mensaje);
+       setEstado(true);
+        int kilometrajeUsado;
+        int kmNuevo;
+        if (kmFinal < this.getKm())
+        {
+            kmNuevo = kmFinal + 999999;
+            kilometrajeUsado = kmNuevo - getKm();
+            String mensaje = "El usuario ha recorrido " + kilometrajeUsado + " kilometros"
+                    + "\nEl vehículo ha sido devuelto, su nuevo kilometraje es " + kmFinal;
+            setKm(kmFinal);
+            JOptionPane.showMessageDialog(null, mensaje); 
+        }
+        else
+        {
+
+            kilometrajeUsado = kmFinal - getKm();
+            String mensaje = "El usuario ha recorrido " + kilometrajeUsado + " kilometros"
+                    + "\nEl vehículo ha sido devuelto, su nuevo kilometraje es " + kmFinal;
+            setKm(kmFinal);
+            JOptionPane.showMessageDialog(null, mensaje);
+        }
     }
 
     @Override

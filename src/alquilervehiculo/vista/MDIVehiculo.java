@@ -5,6 +5,7 @@
  */
 package alquilervehiculo.vista;
 
+import alquilervehiculo.excepciones.ClienteExcepcion;
 import alquilervehiculo.excepciones.VehiculoExcepcion;
 import alquilervehiculo.gestion.GestionUsuario;
 import alquilervehiculo.gestion.GestionVehiculo;
@@ -21,6 +22,8 @@ import alquilervehiculo.utilidades.LeerArchivoPlano;
 
 import java.beans.PropertyVetoException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -52,6 +55,7 @@ public class MDIVehiculo extends javax.swing.JFrame
 
     private void iniciarMenus(boolean estado)
     {
+        menuBar.setEnabled(true);
         mnuArchivo.setVisible(estado);
         mnuUsr.setVisible(estado);
         mnuListarUsr.setVisible(estado);
@@ -60,10 +64,9 @@ public class MDIVehiculo extends javax.swing.JFrame
         mnuListarVehiculos.setVisible(estado);
         mnuCrearVehiculo.setVisible(estado);
         mnuVehiculosAlquilados.setVisible(estado);
-       mnuAlquilar.setVisible(estado);
+        mnuAlquilar.setVisible(estado);
         mnuDevolverVehiculo.setVisible(estado);
-        
-               
+        btnDescargarUsrPDF.setEnabled(true);
 
     }
 
@@ -78,30 +81,35 @@ public class MDIVehiculo extends javax.swing.JFrame
                 break;
 //            Usuario
             case "usr":
-        mnuArchivo.setVisible(true);
-        mnuUsr.setVisible(true);
-        mnuListarUsr.setVisible(true);
-        mnuCrearUsr.setVisible(false);
-        mnuVehiculos.setVisible(true);
-        mnuListarVehiculos.setVisible(true);
-        mnuCrearVehiculo.setVisible(false);
-        mnuVehiculosAlquilados.setVisible(true);
-       mnuAlquilar.setVisible(true);
-        mnuDevolverVehiculo.setVisible(true);
-        break;
+                menuBar.setEnabled(true);
+                mnuArchivo.setVisible(true);
+                mnuUsr.setVisible(true);
+                mnuListarUsr.setVisible(true);
+                mnuCrearUsr.setVisible(false);
+                mnuVehiculos.setVisible(true);
+                mnuListarVehiculos.setVisible(true);
+                mnuCrearVehiculo.setVisible(false);
+                mnuVehiculosAlquilados.setVisible(true);
+                mnuAlquilar.setVisible(true);
+                mnuDevolverVehiculo.setVisible(true);
+                btnDescargarUsrPDF.setEnabled(false);
+
+                break;
             // Otro
-            case "otro" :
-        mnuArchivo.setVisible(true);
-        mnuUsr.setVisible(true);
-        mnuListarUsr.setVisible(true);
-        mnuCrearUsr.setVisible(false);
-        mnuVehiculos.setVisible(true);
-        mnuListarVehiculos.setVisible(true);
-        mnuCrearVehiculo.setVisible(false);
-        mnuVehiculosAlquilados.setVisible(false);
-       mnuAlquilar.setVisible(false);
-        mnuDevolverVehiculo.setVisible(false);
-            break;
+            case "otro":
+              
+                mnuArchivo.setVisible(true);
+                mnuUsr.setVisible(true);
+                mnuListarUsr.setVisible(true);
+                mnuCrearUsr.setVisible(false);
+                mnuVehiculos.setVisible(true);
+                mnuListarVehiculos.setVisible(true);
+                mnuCrearVehiculo.setVisible(false);
+                mnuVehiculosAlquilados.setVisible(false);
+                mnuAlquilar.setVisible(false);
+                mnuDevolverVehiculo.setVisible(false);
+                break;
+            
         }
     }
 
@@ -132,6 +140,7 @@ public class MDIVehiculo extends javax.swing.JFrame
         {
             spnCVCapFurg.setEnabled(false);
         }
+
     }
 
     /**
@@ -151,6 +160,7 @@ public class MDIVehiculo extends javax.swing.JFrame
         tblUsuarios = new javax.swing.JTable();
         btnDescargarUsrPDF = new javax.swing.JButton();
         label13 = new java.awt.Label();
+        btnDescargarPDFClientes = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuArchivoUsuario = new javax.swing.JMenu();
         mnuCrearUsuario = new javax.swing.JMenuItem();
@@ -278,12 +288,21 @@ public class MDIVehiculo extends javax.swing.JFrame
         });
         jScrollPane2.setViewportView(tblUsuarios);
 
-        btnDescargarUsrPDF.setText("Descargar Lista");
+        btnDescargarUsrPDF.setText("Descargar Lista Usuario");
         btnDescargarUsrPDF.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
                 btnDescargarUsrPDFActionPerformed(evt);
+            }
+        });
+
+        btnDescargarPDFClientes.setText("Descargar Lista Clientes");
+        btnDescargarPDFClientes.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnDescargarPDFClientesActionPerformed(evt);
             }
         });
 
@@ -310,11 +329,14 @@ public class MDIVehiculo extends javax.swing.JFrame
             .addGroup(jifUsuariosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jifUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
                     .addGroup(jifUsuariosLayout.createSequentialGroup()
                         .addGroup(jifUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(label13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnDescargarUsrPDF))
+                            .addGroup(jifUsuariosLayout.createSequentialGroup()
+                                .addComponent(btnDescargarUsrPDF)
+                                .addGap(93, 93, 93)
+                                .addComponent(btnDescargarPDFClientes)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -325,8 +347,10 @@ public class MDIVehiculo extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnDescargarUsrPDF)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addGroup(jifUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDescargarUsrPDF)
+                    .addComponent(btnDescargarPDFClientes))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         desktopPane.add(jifUsuarios);
@@ -339,7 +363,7 @@ public class MDIVehiculo extends javax.swing.JFrame
 
         label1.setText("*Correo Ususario");
 
-        label2.setText("*Contrseña");
+        label2.setText("*Contraseña");
 
         btnIngresar.setText("Ingresar");
         btnIngresar.addActionListener(new java.awt.event.ActionListener()
@@ -384,6 +408,8 @@ public class MDIVehiculo extends javax.swing.JFrame
                 .addComponent(btnIngresar)
                 .addContainerGap(31, Short.MAX_VALUE))
         );
+
+        label2.getAccessibleContext().setAccessibleName("*Contraseña");
 
         desktopPane.add(jifLogin);
         jifLogin.setBounds(180, 130, 410, 270);
@@ -927,8 +953,8 @@ public class MDIVehiculo extends javax.swing.JFrame
             .addGroup(jifmAlquilarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jifmAlquilarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
                     .addGroup(jifmAlquilarLayout.createSequentialGroup()
                         .addGroup(jifmAlquilarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jifmAlquilarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -1045,7 +1071,7 @@ public class MDIVehiculo extends javax.swing.JFrame
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnPDFAlquilados)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         desktopPane.add(jifmVehiculosAlquilados);
@@ -1170,8 +1196,9 @@ public class MDIVehiculo extends javax.swing.JFrame
 
         mnuArchivo.setMnemonic('f');
         mnuArchivo.setText("Archivo");
+        mnuArchivo.setEnabled(false);
 
-        mnuUsr.setText("Usuaros");
+        mnuUsr.setText("Usuarios");
 
         mnuListarUsr.setText("Listar Usuarios");
         mnuListarUsr.addActionListener(new java.awt.event.ActionListener()
@@ -1416,7 +1443,7 @@ public class MDIVehiculo extends javax.swing.JFrame
                     gestionarPermisosMenu();
                     JOptionPane.showMessageDialog(this,
                             "Bienvenido " + nombreUsr, "Bienvenido", 1);
-                    mnuVehiculos.setEnabled(true);
+                    mnuArchivo.setEnabled(true);
                     gestionarPermisosMenu();
                     jifLogin.hide();
                     System.out.println(usuarioAutenticado.getTipoUsuario().getCodigo());
@@ -1434,13 +1461,12 @@ public class MDIVehiculo extends javax.swing.JFrame
     private void mnuCerrarSesionActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuCerrarSesionActionPerformed
     {//GEN-HEADEREND:event_mnuCerrarSesionActionPerformed
 
-       
         txtCorreoUsuario.setText("");
         txtContrasenia.setText("");
         usuarioAutenticado = null;
         iniciarMenus(false);
         jifLogin.show();
-        
+
 
     }//GEN-LAST:event_mnuCerrarSesionActionPerformed
 
@@ -1562,35 +1588,64 @@ public class MDIVehiculo extends javax.swing.JFrame
         controlUsuario.getTipoUsuarios();
         TipoUsuario[] tipos;
 
-        if (cboxTipoUsuario.getSelectedItem().toString().equals("Adm") || cboxTipoUsuario.getSelectedItem().toString().equals("Usr"))
-        {
-            if (txtCUNombre.getText() == null || txtCUNombre.getText().compareTo("") == 0)
+            if (cboxTipoUsuario.getSelectedItem().toString().equals("Adm") || cboxTipoUsuario.getSelectedItem().toString().equals("Usr"))
             {
-                JOptionPane.showMessageDialog(this, "Debe escribir su nombre", "Datos Faltantes", 2);
-            }
-            else if (txtCUIdentificacion.getText() == null || txtCUIdentificacion.getText().compareTo("") == 0)
-            {
-                JOptionPane.showMessageDialog(this, "Debe escribir su identificacion", "Datos Faltantes", 2);
-            }
-            else if (txtCUCorreoElectronico.getText() == null || txtCUCorreoElectronico.getText().compareTo("") == 0)
-            {
-                JOptionPane.showMessageDialog(this, "Debe escribir un correo electronico", "Datos Faltantes", 2);
-            }
+                if (txtCUNombre.getText() == null || txtCUNombre.getText().compareTo("") == 0)
+                {
+                    JOptionPane.showMessageDialog(this, "Debe escribir su nombre", "Datos Faltantes", 2);
+                }
+                else if (txtCUIdentificacion.getText() == null || txtCUIdentificacion.getText().compareTo("") == 0)
+                {
+                    JOptionPane.showMessageDialog(this, "Debe escribir su identificacion", "Datos Faltantes", 2);
+                }
+                else if (txtCUCorreoElectronico.getText() == null || txtCUCorreoElectronico.getText().compareTo("") == 0)
+                {
+                    JOptionPane.showMessageDialog(this, "Debe escribir un correo electronico", "Datos Faltantes", 2);
+                }
             else if (txtCUContrasenia.getText() == null || txtCUContrasenia.getText().compareTo("") == 0)
-            {
-                JOptionPane.showMessageDialog(this, "Debe escribir una contraseña", "Datos Faltantes", 2);
+                {
+                    JOptionPane.showMessageDialog(this, "Debe escribir una contraseña", "Datos Faltantes", 2);
+                }
+                else
+                {
+
+                    String codigo = cboxTipoUsuario.getSelectedItem().toString().toLowerCase();
+                    byte numTipo = leer.convertirTipoUsr(codigo);
+                    tipos = controlUsuario.getTipoUsuarios();
+                    Usuario usr = new Usuario(txtCUIdentificacion.getText(), txtCUNombre.getText(), txtCUCorreoElectronico.getText(), txtCUContrasenia.getText(), tipos[numTipo]);
+
+                    try
+                    {
+                        controlUsuario.adicionarUsuario(usr);
+                        llenarTablaUsr();
+                        llenarTablaCli();
+                        txtCUNombre.setText("");
+                        txtCUIdentificacion.setText("");
+                        txtCUCorreoElectronico.setText("");
+                        txtCUContrasenia.setText("");
+                    }
+                    catch (ClienteExcepcion ex)
+                    {
+                        JOptionPane.showMessageDialog(this,
+                                ex.getMessage(), "error en el usuario", 0);
+                    }
+                }
             }
             else
             {
-
-                String codigo = cboxTipoUsuario.getSelectedItem().toString().toLowerCase();
-                byte numTipo = leer.convertirTipoUsr(codigo);
-                tipos = controlUsuario.getTipoUsuarios();
-                Usuario usr = new Usuario(txtCUIdentificacion.getText(), txtCUNombre.getText(), txtCUCorreoElectronico.getText(), txtCUContrasenia.getText(), tipos[numTipo]);
-
+                if (txtCUNombre.getText() == null || txtCUNombre.getText().compareTo("") == 0)
+                {
+                    JOptionPane.showMessageDialog(this, "Debe escribir su nombre", "Datos Faltantes", 2);
+                }
+                else if (txtCUIdentificacion.getText() == null || txtCUIdentificacion.getText().compareTo("") == 0)
+                {
+                    JOptionPane.showMessageDialog(this, "Debe escribir su identificacion", "Datos Faltantes", 2);
+                }
+                //Crear cliente 
+                Cliente cliente = new Cliente(txtCUNombre.getText(), txtCUIdentificacion.getText());
                 try
                 {
-                    controlUsuario.adicionarUsuario(usr);
+                    controlUsuario.adicionarCliente(cliente);
                     llenarTablaUsr();
                     llenarTablaCli();
                     txtCUNombre.setText("");
@@ -1601,39 +1656,11 @@ public class MDIVehiculo extends javax.swing.JFrame
                 catch (VehiculoExcepcion ex)
                 {
                     JOptionPane.showMessageDialog(this,
-                            ex.getMessage(), "error en el usuario", 0);
+                            ex.getMessage(), "error en el cliente", 0);
                 }
-            }
-        }
-        else
-        {
-            if (txtCUNombre.getText() == null || txtCUNombre.getText().compareTo("") == 0)
-            {
-                JOptionPane.showMessageDialog(this, "Debe escribir su nombre", "Datos Faltantes", 2);
-            }
-            else if (txtCUIdentificacion.getText() == null || txtCUIdentificacion.getText().compareTo("") == 0)
-            {
-                JOptionPane.showMessageDialog(this, "Debe escribir su identificacion", "Datos Faltantes", 2);
-            }
-            //Crear cliente 
-            Cliente cliente = new Cliente( txtCUNombre.getText(),txtCUIdentificacion.getText());
-            try
-            {
-                controlUsuario.adicionarCliente(cliente);
-                llenarTablaUsr();
-                llenarTablaCli();
-                txtCUNombre.setText("");
-                txtCUIdentificacion.setText("");
-                txtCUCorreoElectronico.setText("");
-                txtCUContrasenia.setText("");
-            }
-            catch (VehiculoExcepcion ex)
-            {
-                JOptionPane.showMessageDialog(this,
-                        ex.getMessage(), "error en el cliente", 0);
-            }
 
-        }
+            }
+    
 
     }//GEN-LAST:event_btnCrearUsrActionPerformed
 
@@ -1817,8 +1844,8 @@ public class MDIVehiculo extends javax.swing.JFrame
         {
             // TODO add your handling code here:
             CrearPDF vehiculoPDF = new CrearPDF();
-            vehiculoPDF.crearDocumentoPdfVehiculos("./src/pdfs/tabla.pdf", controlVehiculo.getVehiculos());
-            vehiculoPDF.abrirDocumento("./src/pdfs/tabla.pdf");
+            vehiculoPDF.crearDocumentoPdfVehiculos("./src/pdfs/Vehiculos.pdf", controlVehiculo.getVehiculos());
+            vehiculoPDF.abrirDocumento("./src/pdfs/Vehiculos.pdf");
         }
         catch (Exception ex)
         {
@@ -1833,8 +1860,8 @@ public class MDIVehiculo extends javax.swing.JFrame
         {
 
             CrearPDF usuarioPDF = new CrearPDF();
-            usuarioPDF.crearDocumentoPdfUsuarios("./src/listaUsuarios.pdf", controlUsuario.getUsuarios());
-            usuarioPDF.abrirDocumento("./src/listaUsuarios.pdf");
+            usuarioPDF.crearDocumentoPdfUsuarios("./src/pdfs/Usuarios.pdf", controlUsuario.getUsuarios());
+            usuarioPDF.abrirDocumento("./src/pdfs/Usuarios.pdf");
         }
         catch (Exception ex)
         {
@@ -1867,8 +1894,22 @@ public class MDIVehiculo extends javax.swing.JFrame
 
     }//GEN-LAST:event_tblClienteMouseClicked
 
+    public Date sumarRestarDiasFecha(Date fecha)
+    {
+        Date a;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fecha); // Configuramos la fecha que se recibe
+
+        calendar.add(Calendar.DAY_OF_YEAR, -1);  // numero de días a añadir, o restar en caso de días<0
+
+        return a = calendar.getTime(); // Devuelve el objeto Date con los nuevos días añadidos
+
+    }
     private void btnAlquilarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAlquilarActionPerformed
     {//GEN-HEADEREND:event_btnAlquilarActionPerformed
+
+        Date hoy = new Date();
+        Date fecha = sumarRestarDiasFecha(hoy);
 
         if (txtClienteSeleccionado.getText() == null || txtClienteSeleccionado.getText().compareTo("") == 0)
         {
@@ -1882,6 +1923,12 @@ public class MDIVehiculo extends javax.swing.JFrame
         {
             JOptionPane.showMessageDialog(this, "Debe seleccionar una fecha de entrega");
         }
+
+        else if (jDateEntregaAlquiler.getDate().before(fecha))
+        {
+            JOptionPane.showMessageDialog(this, "La fecha de alquiler es anterior a la fecha actual");
+        }
+
         else if (jDateDevolucionAlquiler.getDate() == null)
         {
             JOptionPane.showMessageDialog(this, "Debe seleccionar una fecha de devolución");
@@ -1935,8 +1982,8 @@ public class MDIVehiculo extends javax.swing.JFrame
     private void mnuAlquilarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_mnuAlquilarActionPerformed
     {//GEN-HEADEREND:event_mnuAlquilarActionPerformed
 
-//        controlUsuario.llenarClientes();
-//        controlVehiculo.llenarVehiculos();
+        Date fecha = new Date();
+        jDateEntregaAlquiler.setDate(fecha);
         llenarTablaCli();
         llenarAlquilarVehiculos();
         llenarTablaVhs();
@@ -2089,11 +2136,11 @@ public class MDIVehiculo extends javax.swing.JFrame
         {
             JOptionPane.showMessageDialog(this, "Debe ingresar el kilometraje final");
         }
-        else if (Integer.parseInt(txtKilometrajeInicial.getText()) > Integer.parseInt(txtKilometrajeFinal.getText()))
-        {
-
-            JOptionPane.showMessageDialog(this, "El kilometraje final debe ser mayor al inicial  ");
-        }
+//        else if (Integer.parseInt(txtKilometrajeInicial.getText()) > Integer.parseInt(txtKilometrajeFinal.getText()))
+//        {
+//
+//            JOptionPane.showMessageDialog(this, "El kilometraje final debe ser mayor al inicial  ");
+//        }
         else
         {
             AlquilaVehiculo vehiculoDevolver = controlVehiculo.encontrarVehiculoAlquilado(txtMatriulaDevolver.getText());
@@ -2120,9 +2167,25 @@ public class MDIVehiculo extends javax.swing.JFrame
 
     private void btnMostrarDatosActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnMostrarDatosActionPerformed
     {//GEN-HEADEREND:event_btnMostrarDatosActionPerformed
-       // TODO add your handling code here:
-       controlVehiculo.encontrarVehiculo(txtVerVehiculo.getText()).mostrarDatos();
+        // TODO add your handling code here:
+        controlVehiculo.encontrarVehiculo(txtVerVehiculo.getText()).mostrarDatos();
     }//GEN-LAST:event_btnMostrarDatosActionPerformed
+
+    private void btnDescargarPDFClientesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnDescargarPDFClientesActionPerformed
+    {//GEN-HEADEREND:event_btnDescargarPDFClientesActionPerformed
+        // TODO add your handling code here:
+        try
+        {
+
+            CrearPDF usuarioPDF = new CrearPDF();
+            usuarioPDF.crearDocumentoPdfClientes("./src/pdfs/Clientes.pdf", controlUsuario.getClientes());
+            usuarioPDF.abrirDocumento("./src/pdfs/Clientes.pdf");
+        }
+        catch (Exception ex)
+        {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_btnDescargarPDFClientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2178,6 +2241,7 @@ public class MDIVehiculo extends javax.swing.JFrame
     private javax.swing.JButton btnCVCrearVehiculo;
     private javax.swing.JButton btnCalcularAlquiler;
     private javax.swing.JButton btnCrearUsr;
+    private javax.swing.JButton btnDescargarPDFClientes;
     private javax.swing.JButton btnDescargarUsrPDF;
     private javax.swing.JButton btnDescargarpdfVehiculos;
     private javax.swing.JButton btnDevolver;

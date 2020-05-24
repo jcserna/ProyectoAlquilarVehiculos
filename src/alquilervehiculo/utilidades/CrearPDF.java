@@ -7,6 +7,7 @@ package alquilervehiculo.utilidades;
 
 import alquilervehiculo.modelo.AbstractVehiculo;
 import alquilervehiculo.modelo.AlquilaVehiculo;
+import alquilervehiculo.modelo.Cliente;
 import alquilervehiculo.modelo.Usuario;
 import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.kernel.colors.ColorConstants;
@@ -153,9 +154,7 @@ public class CrearPDF
                 tabla.addCell(tmp);
 
             }
-//            tabla.addCell(veh.getMatricula());
-//            tabla.addCell(veh.getMatricula());
-//            tabla.addCell(String.valueOf(mat.getCapacidadAlumnos()));
+
         }
 
         doc.add(tabla);
@@ -176,12 +175,12 @@ public class CrearPDF
         tabla.addCell(obtenerCeldaEncabezado("Fecha Alquiler"));
         tabla.addCell(obtenerCeldaEncabezado("Fecha Devolución"));
 
-        for (AlquilaVehiculo veh : listado)
+        for (AlquilaVehiculo vehAlq : listado)
         {
             tabla.startNewRow();
-            for (int i = 0; i < veh.obtenerArregloVehiculoAlquilado().length; i++)
+            for (int i = 0; i < vehAlq.obtenerArregloVehiculoAlquilado().length; i++)
             {
-                Object datos[] = veh.obtenerArregloVehiculoAlquilado();
+                Object datos[] = vehAlq.obtenerArregloVehiculoAlquilado();
                 String tmp = datos[i].toString();
                 tabla.addCell(tmp);
 
@@ -217,11 +216,39 @@ public class CrearPDF
                 tabla.addCell(tmp);
 
             }
-        }
+            }
 
         doc.add(tabla);
         doc.close();
 
     }
+    public void crearDocumentoPdfClientes(String destino, List<Cliente> listadoClie) throws Exception
+    {
+        File archivo = new File(destino);
+        archivo.getParentFile().mkdirs();
+        PdfDocument documento = new PdfDocument(new PdfWriter(destino));
+        Document doc = new Document(documento);
 
-}
+        Table tabla = new Table(5);
+        tabla.addCell(obtenerCeldaEncabezado("Nombre"));
+        tabla.addCell(obtenerCeldaEncabezado("Identificación"));
+    
+
+        for (Cliente clie : listadoClie)
+        {
+            tabla.startNewRow();
+   
+                Object datos[] = clie.obtenerArregloCliente();
+                String tmp1 = datos[0].toString();
+                tabla.addCell(tmp1);
+                String tmp2 = datos[2].toString();
+                tabla.addCell(tmp2);
+                
+            
+            }
+
+        doc.add(tabla);
+        doc.close();
+
+    }
+    }

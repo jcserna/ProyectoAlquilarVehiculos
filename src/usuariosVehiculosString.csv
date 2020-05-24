@@ -1,5 +1,4 @@
 cedula ;nombre ;correo electronico;password;tipo de usuario 
-123456789;juan;adm@adm.com;123;adm
-987654321;camilo;usuario@usuario.com;321;usr
-987655321;camilo;otro@otro.com;1;otro
-cliente; 12344
+123456789;Mr. Administrador;adm@adm.com;123;adm
+987654321;Mr. Usuario;usuario@usuario.com;321;usr
+12345;Mr. Cliente;otro@otro.com;1;otro

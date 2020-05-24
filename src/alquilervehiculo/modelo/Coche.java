@@ -50,12 +50,10 @@ public class Coche extends AbstractVehiculo
         return mensaje;
     }
 
+    @Override
     public void mostrarDatos()
     {
         String mensaje;
-
-
-
         if (isExtras() == true)
         {
             mensaje = "El coche tiene extras";
@@ -66,8 +64,8 @@ public class Coche extends AbstractVehiculo
         }
         JOptionPane.showMessageDialog(null, "Tipo de Vehiculo: " + getClass().getSimpleName()
                 + "\nMatricula: " + getMatricula()
-                + "\nKilometraje: " + getKm() +"\n"+mensaje
-       );
+                + "\nKilometraje: " + getKm() + "\n" + mensaje
+        );
     }
 
     @Override
@@ -81,11 +79,27 @@ public class Coche extends AbstractVehiculo
     public void devolver(int kmFinal)
     {
         setEstado(true);
-        int kilometrajeUsado = kmFinal - getKm();
-        String mensaje = "El usuario ha recorrido " + kilometrajeUsado + " kilometros"
-                + "\nEl vheículo ha sido devuelto, su nuevo kilometraje es " + kmFinal;
-        setKm(kmFinal);
-        JOptionPane.showMessageDialog(null, mensaje);
+        int kilometrajeUsado;
+        int kmNuevo;
+        if (kmFinal < this.getKm())
+        {
+            kmNuevo = kmFinal + 999999;
+            kilometrajeUsado = kmNuevo - getKm();
+            String mensaje = "El usuario ha recorrido " + kilometrajeUsado + " kilometros"
+                    + "\nEl vehículo ha sido devuelto, su nuevo kilometraje es " + kmFinal;
+            setKm(kmFinal);
+            JOptionPane.showMessageDialog(null, mensaje); 
+        }
+        else
+        {
+
+            kilometrajeUsado = kmFinal - getKm();
+            String mensaje = "El usuario ha recorrido " + kilometrajeUsado + " kilometros"
+                    + "\nEl vehículo ha sido devuelto, su nuevo kilometraje es " + kmFinal;
+            setKm(kmFinal);
+            JOptionPane.showMessageDialog(null, mensaje);
+        }
+
     }
 
     @Override
